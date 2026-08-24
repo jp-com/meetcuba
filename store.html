@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Our Store — Meet Cuba, Hong Kong</title>
+<link rel="stylesheet" href="footer.css">
 <style>
   :root {
     --ink: #17140f;
@@ -247,48 +248,6 @@
   .trust-strip__title { font-size: 11.5px; letter-spacing: 0.04em; margin-bottom: 2px; }
   .trust-strip__sub { color: var(--ink-soft); font-size: 10.5px; }
 
-  /* Footer */
-  .footer { padding: 56px 40px 26px; }
-  .footer__top {
-    display: grid;
-    grid-template-columns: 1.3fr 0.8fr 0.8fr 0.9fr 0.9fr 1.3fr;
-    gap: 30px;
-    padding-bottom: 40px;
-  }
-  .footer__brand-name {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 17px;
-    letter-spacing: 0.04em;
-  }
-  .footer__brand-sub { font-size: 9px; letter-spacing: 0.25em; color: var(--ink-soft); margin: 2px 0 18px; }
-  .footer__brand-copy { color: var(--ink-soft); font-size: 11.5px; line-height: 1.7; margin-bottom: 18px; }
-  .footer__social { width: 24px; height: 24px; border: 1px solid var(--line); }
-  .footer__col-title { letter-spacing: 0.1em; font-size: 10.5px; font-weight: 600; margin-bottom: 16px; }
-  .footer__col-link { display: block; color: var(--ink-soft); font-size: 12px; margin-bottom: 12px; }
-  .footer__newsletter-copy { color: var(--ink-soft); font-size: 11.5px; line-height: 1.6; margin-bottom: 16px; }
-  .footer__newsletter-form { display: flex; border-bottom: 1px solid var(--ink); padding-bottom: 10px; }
-  .footer__newsletter-input {
-    flex: 1;
-    border: none;
-    background: none;
-    font-size: 12px;
-    color: var(--ink);
-    outline: none;
-  }
-  .footer__newsletter-input::placeholder { color: var(--ink-soft); }
-  .footer__newsletter-submit { font-size: 14px; }
-
-  .footer__bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-top: 22px;
-    border-top: 1px solid var(--line);
-    color: var(--ink-soft);
-    letter-spacing: 0.06em;
-    font-size: 10px;
-  }
-  .footer__bottom-links { display: flex; gap: 24px; }
 
   /* Bag toggle */
   .bag-toggle { cursor: pointer; }
@@ -572,59 +531,7 @@
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="footer__top">
-      <div>
-        <div class="footer__brand-name">MEET CUBA</div>
-        <div class="footer__brand-sub">HONG KONG</div>
-        <div class="footer__brand-copy">Fine cigars. Rare finds.<br>Personal service.</div>
-        <div class="footer__social"></div>
-      </div>
-      <div>
-        <div class="footer__col-title">SHOP</div>
-        <a class="footer__col-link" href="shop.html">All Cigars</a>
-        <a class="footer__col-link" href="#">Accessories</a>
-        <a class="footer__col-link" href="#">New Arrivals</a>
-        <a class="footer__col-link" href="#">Gift Cards</a>
-      </div>
-      <div>
-        <div class="footer__col-title">BRANDS</div>
-        <a class="footer__col-link" href="brands.html">Cohiba</a>
-        <a class="footer__col-link" href="brands.html">Partagás</a>
-        <a class="footer__col-link" href="brands.html">Montecristo</a>
-        <a class="footer__col-link" href="brands.html">All Brands</a>
-      </div>
-      <div>
-        <div class="footer__col-title">CUSTOMER CARE</div>
-        <a class="footer__col-link" href="#">Delivery</a>
-        <a class="footer__col-link" href="#">Returns</a>
-        <a class="footer__col-link" href="#">FAQ</a>
-        <a class="footer__col-link" href="#">Contact Us</a>
-      </div>
-      <div>
-        <div class="footer__col-title">OUR STORE</div>
-        <a class="footer__col-link" href="store.html">About Us</a>
-        <a class="footer__col-link" href="store.html">Visit Us</a>
-        <a class="footer__col-link" href="store.html">Private Appointments</a>
-      </div>
-      <div>
-        <div class="footer__col-title">NEWSLETTER</div>
-        <div class="footer__newsletter-copy">Be the first to know about new arrivals and exclusive releases.</div>
-        <div class="footer__newsletter-form">
-          <input class="footer__newsletter-input" type="email" placeholder="Enter your email">
-          <span class="footer__newsletter-submit">→</span>
-        </div>
-      </div>
-    </div>
-    <div class="footer__bottom">
-      <span>© 2026 MEET CUBA HONG KONG. ALL RIGHTS RESERVED.</span>
-      <div class="footer__bottom-links">
-        <a href="#">TERMS &amp; CONDITIONS</a>
-        <a href="#">PRIVACY POLICY</a>
-        <span>18+ ONLY</span>
-      </div>
-    </div>
-  </footer>
+  <div id="site-footer"></div>
 
   <div class="cart-overlay" id="cartOverlay"></div>
   <aside class="cart-drawer" id="cartDrawer">
@@ -650,5 +557,6 @@
     </div>
   </aside>
   <script src="cart.js"></script>
+  <script src="footer.js"></script>
 </body>
 </html>
