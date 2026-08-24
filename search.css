@@ -40,18 +40,12 @@ body.search-open .search-overlay { display: block; }
 }
 .search-overlay__icon-search {
   flex: none;
-  width: 16px; height: 16px;
-  border: 1px solid var(--ink-soft);
-  border-radius: 50%;
-  position: relative;
-}
-.search-overlay__icon-search::after {
-  content: "";
-  position: absolute;
-  width: 6px; height: 1px;
-  background: var(--ink-soft);
-  right: -5px; bottom: 1px;
-  transform: rotate(45deg);
+  width: 17px;
+  height: 17px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Ccircle cx='8.5' cy='8.5' r='6.5' stroke='%234a453d' stroke-width='1.4'/%3E%3Cline x1='13.3' y1='13.3' x2='18' y2='18' stroke='%234a453d' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 .search-overlay__input {
   flex: 1;
