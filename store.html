@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Brands — Meet Cuba, Hong Kong</title>
+<title>Our Store — Meet Cuba, Hong Kong</title>
 <style>
   :root {
     --ink: #17140f;
@@ -88,6 +88,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    gap: 8px;
     letter-spacing: 0.12em;
     font-size: 11px;
     padding: 16px 24px;
@@ -95,6 +96,9 @@
   }
   .btn:hover { opacity: 0.8; }
   .btn--primary { background: var(--ink); color: var(--ground); }
+  .btn--light { background: var(--ground); color: var(--ink); }
+  .btn--outline-light { border: 1px solid var(--ground); color: var(--ground); }
+  .btn--outline-dark { border: 1px solid var(--ink); color: var(--ink); justify-content: space-between; }
 
   .text-link {
     letter-spacing: 0.1em;
@@ -111,88 +115,122 @@
     border: 1px solid var(--placeholder-line);
   }
 
-  /* Brands header */
-  .brands-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 40px;
-    padding-top: 60px;
-    padding-bottom: 50px;
-  }
-  .brands-header__title {
-    font-family: Georgia, "Times New Roman", serif;
-    font-size: 44px;
-    margin-bottom: 16px;
-  }
-  .brands-header__copy {
-    color: var(--ink-soft);
-    font-size: 13px;
-    line-height: 1.8;
-    max-width: 380px;
-  }
-  .brands-sort {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    white-space: nowrap;
-  }
-  .brands-sort__label { letter-spacing: 0.12em; font-size: 10px; color: var(--ink-soft); }
-  .brands-sort__value {
-    letter-spacing: 0.1em;
-    font-size: 11px;
-    font-weight: 600;
-    border-bottom: 1px solid var(--ink);
-    padding-bottom: 2px;
-  }
-
-  /* Brands grid */
-  .brands-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border-top: 1px solid var(--line);
-    border-left: 1px solid var(--line);
-  }
-  .brand-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 34px;
-    border-right: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    transition: opacity 0.2s ease;
-  }
-  .brand-card:hover { opacity: 0.85; }
-  .brand-card__body { flex: 1; min-width: 0; }
-  .brand-card__name {
-    font-size: 19px;
-    font-weight: 700;
-    letter-spacing: 0.03em;
-    margin-bottom: 8px;
-  }
-  .brand-card__meta {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--ink-soft);
-    letter-spacing: 0.12em;
-    font-size: 9px;
-    margin-bottom: 16px;
-  }
-  .brand-card__meta-mark { width: 14px; height: 14px; border: 1px solid var(--placeholder-line); flex: none; }
-  .brand-card__copy { color: var(--ink-soft); font-size: 12px; line-height: 1.6; margin-bottom: 18px; }
-  .brand-card__image {
-    width: 150px;
-    height: 110px;
-    flex: none;
-    background: var(--placeholder);
+  /* Hero */
+  .store-hero {
+    position: relative;
+    height: 460px;
+    margin: 0 40px;
+    background: #2a2521;
     border: 1px solid var(--placeholder-line);
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    color: var(--ground);
   }
-  .brand-card__image-mark { width: 26%; aspect-ratio: 1; border: 1px solid var(--placeholder-line); }
+  .store-hero__eyebrow { letter-spacing: 0.1em; font-size: 11px; color: rgba(248,246,242,0.75); margin-bottom: 18px; }
+  .store-hero__title { font-family: Georgia, "Times New Roman", serif; font-size: 48px; margin-bottom: 10px; }
+  .store-hero__sub { letter-spacing: 0.2em; font-size: 12px; color: rgba(248,246,242,0.8); margin-bottom: 24px; }
+  .store-hero__actions { display: flex; gap: 14px; justify-content: center; }
+
+  /* Store info + map */
+  .store-info {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 60px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  .store-info__eyebrow { letter-spacing: 0.15em; font-size: 10px; color: var(--gold); margin-bottom: 14px; }
+  .store-info__title { font-family: Georgia, "Times New Roman", serif; font-size: 28px; margin-bottom: 26px; }
+  .store-info__row {
+    display: flex;
+    gap: 14px;
+    padding: 18px 0;
+    border-top: 1px solid var(--line);
+  }
+  .store-info__row:last-of-type { border-bottom: 1px solid var(--line); }
+  .store-info__icon { width: 16px; height: 16px; flex: none; border: 1px solid var(--placeholder-line); margin-top: 2px; }
+  .store-info__text { font-size: 12.5px; line-height: 1.7; }
+  .store-info__hours { display: flex; justify-content: space-between; gap: 20px; max-width: 260px; }
+
+  .store-map {
+    position: relative;
+    background: var(--placeholder);
+    border: 1px solid var(--placeholder-line);
+  }
+  .store-map__pin {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 14px; height: 14px;
+    background: var(--ink);
+    border-radius: 50% 50% 50% 0;
+    transform: translate(-50%, -100%) rotate(-45deg);
+  }
+  .store-map__controls {
+    position: absolute;
+    bottom: 16px; right: 16px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--placeholder-line);
+    background: var(--ground);
+  }
+  .store-map__control {
+    width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    border-bottom: 1px solid var(--placeholder-line);
+  }
+  .store-map__control:last-child { border-bottom: none; }
+  .store-map__expand {
+    position: absolute;
+    top: 16px; right: 16px;
+    width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--ground);
+    border: 1px solid var(--placeholder-line);
+    font-size: 12px;
+  }
+
+  /* Getting here */
+  .getting-here {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    background: var(--ground-alt);
+    padding: 0;
+  }
+  .getting-here__content { padding: 44px 40px; }
+  .getting-here__label { letter-spacing: 0.12em; font-size: 11px; font-weight: 600; margin-bottom: 30px; }
+  .getting-here__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  .getting-here__icon { width: 26px; height: 26px; border: 1px solid var(--placeholder-line); border-radius: 50%; margin-bottom: 14px; }
+  .getting-here__title { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
+  .getting-here__copy { color: var(--ink-soft); font-size: 11.5px; line-height: 1.6; }
+  .getting-here__image { aspect-ratio: auto; display: flex; align-items: center; justify-content: center; }
+  .getting-here__image-mark { width: 20%; aspect-ratio: 1; border: 1px solid var(--placeholder-line); }
+
+  /* Inside our store */
+  .inside-store { padding-top: 60px; padding-bottom: 10px; }
+  .inside-store__label { letter-spacing: 0.12em; font-size: 11px; font-weight: 600; margin-bottom: 24px; }
+  .inside-store__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .inside-store__image { aspect-ratio: 4 / 3; display: flex; align-items: center; justify-content: center; }
+  .inside-store__image-mark { width: 26%; aspect-ratio: 1; border: 1px solid var(--placeholder-line); }
+
+  /* Personal service */
+  .personal-service {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr 0.9fr;
+    gap: 30px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    align-items: center;
+  }
+  .personal-service__eyebrow { letter-spacing: 0.12em; font-size: 10px; color: var(--ink-soft); margin-bottom: 14px; }
+  .personal-service__title { font-family: Georgia, "Times New Roman", serif; font-size: 26px; line-height: 1.25; margin-bottom: 14px; }
+  .personal-service__copy { color: var(--ink-soft); font-size: 12px; line-height: 1.7; }
+  .personal-service__feature-icon { width: 26px; height: 26px; border: 1px solid var(--placeholder-line); border-radius: 50%; margin-bottom: 14px; }
+  .personal-service__feature-title { font-size: 11.5px; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 8px; }
+  .personal-service__feature-copy { color: var(--ink-soft); font-size: 11.5px; line-height: 1.6; }
+  .personal-service__actions { display: flex; flex-direction: column; gap: 12px; }
 
   /* Trust strip */
   .trust-strip {
@@ -200,6 +238,8 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     padding: 40px;
+    margin-top: 40px;
+    border-top: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
   }
   .trust-strip__item { display: flex; align-items: center; gap: 14px; }
@@ -383,7 +423,7 @@
     <div class="nav__links nav__links--left u-label">
       <span>SEARCH</span>
       <a class="nav__link" href="shop.html">SHOP</a>
-      <a class="nav__link nav__link--active" href="brands.html">BRANDS</a>
+      <a class="nav__link" href="brands.html">BRANDS</a>
     </div>
     <a class="nav__logo" href="index.html">
       <div class="nav__logo-main">MEET CUBA</div>
@@ -391,144 +431,113 @@
     </a>
     <div class="nav__links nav__links--right u-label">
       <span>SPECIAL EDITIONS</span>
-      <a class="nav__link" href="store.html">OUR STORE</a>
+      <a class="nav__link nav__link--active" href="store.html">OUR STORE</a>
     </div>
   </nav>
 
-  <section class="brands-header">
+  <section class="store-hero">
     <div>
-      <h1 class="brands-header__title">Brands</h1>
-      <p class="brands-header__copy">Explore the houses we carry. From iconic legacies to independent makers, each with a story worth discovering.</p>
-    </div>
-    <div class="brands-sort">
-      <span class="brands-sort__label">SORT BY</span>
-      <span class="brands-sort__value">A – Z ▾</span>
+      <div class="store-hero__eyebrow">MEET CUBA · HONG KONG</div>
+      <h1 class="store-hero__title">Visit Meet Cuba</h1>
+      <div class="store-hero__sub">HONG KONG</div>
+      <div class="store-hero__eyebrow" style="margin-bottom: 26px;">Fine cigars. Personal service.</div>
+      <div class="store-hero__actions">
+        <a class="btn btn--light" href="#">GET DIRECTIONS →</a>
+        <a class="btn btn--outline-light" href="#">CONTACT US</a>
+      </div>
     </div>
   </section>
 
-  <section style="padding: 0 40px;">
-    <div class="brands-grid">
+  <section class="store-info">
+    <div>
+      <div class="store-info__eyebrow">OUR STORE</div>
+      <h2 class="store-info__title">Meet Cuba Hong Kong</h2>
 
-      <a class="brand-card" href="shop.html">
-        <div class="brand-card__body">
-          <div class="brand-card__name">COHIBA</div>
-          <div class="brand-card__meta"><span class="brand-card__meta-mark"></span>COHIBA</div>
-          <div class="brand-card__copy">The most prestigious of all Cuban brands.</div>
-          <span class="text-link">EXPLORE →</span>
+      <div class="store-info__row">
+        <div class="store-info__icon"></div>
+        <div class="store-info__text">Shop 12, G/F, Entertainment Building<br>30 Queen's Road Central<br>Central, Hong Kong</div>
+      </div>
+      <div class="store-info__row">
+        <div class="store-info__icon"></div>
+        <div class="store-info__text" style="flex: 1;">
+          <div class="store-info__hours"><span>Monday – Saturday</span><span>11:00 – 20:00</span></div>
+          <div class="store-info__hours" style="margin-top: 6px;"><span>Sunday</span><span>12:00 – 19:00</span></div>
         </div>
-        <div class="brand-card__image"><div class="brand-card__image-mark"></div></div>
-      </a>
+      </div>
+      <div class="store-info__row">
+        <div class="store-info__icon"></div>
+        <div class="store-info__text">+852 2543 4288</div>
+      </div>
+      <div class="store-info__row">
+        <div class="store-info__icon"></div>
+        <div class="store-info__text">WhatsApp Us</div>
+      </div>
+    </div>
 
-      <a class="brand-card" href="shop.html">
-        <div class="brand-card__body">
-          <div class="brand-card__name">PARTAGÁS</div>
-          <div class="brand-card__meta">HABANA · CUBA</div>
-          <div class="brand-card__copy">Bold, timeless and unmistakably Partagás.</div>
-          <span class="text-link">EXPLORE →</span>
+    <div class="store-map">
+      <div class="store-map__pin"></div>
+      <div class="store-map__expand">⤢</div>
+      <div class="store-map__controls">
+        <div class="store-map__control">+</div>
+        <div class="store-map__control">−</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="getting-here" style="padding: 0;">
+    <div class="getting-here__content">
+      <div class="getting-here__label">GETTING HERE</div>
+      <div class="getting-here__grid">
+        <div>
+          <div class="getting-here__icon"></div>
+          <div class="getting-here__title">By MTR</div>
+          <div class="getting-here__copy">5 minute walk from Central Station Exit D2.</div>
         </div>
-        <div class="brand-card__image"><div class="brand-card__image-mark"></div></div>
-      </a>
-
-      <a class="brand-card" href="shop.html">
-        <div class="brand-card__body">
-          <div class="brand-card__name">MONTECRISTO</div>
-          <div class="brand-card__meta"><span class="brand-card__meta-mark"></span>HABANA · CUBA</div>
-          <div class="brand-card__copy">A global icon with a legacy of craftsmanship.</div>
-          <span class="text-link">EXPLORE →</span>
+        <div>
+          <div class="getting-here__icon"></div>
+          <div class="getting-here__title">By Taxi</div>
+          <div class="getting-here__copy">Show driver this address:<br>中環皇后大道中30號娛樂行地下12號舖</div>
         </div>
-        <div class="brand-card__image"><div class="brand-card__image-mark"></div></div>
-      </a>
-
-      <a class="brand-card" href="shop.html">
-        <div class="brand-card__body">
-          <div class="brand-card__name">HOYO DE MONTERREY</div>
-          <div class="brand-card__meta">HABANA · CUBA</div>
-          <div class="brand-card__copy">Elegant and refined since the 19th century.</div>
-          <span class="text-link">EXPLORE →</span>
+        <div>
+          <div class="getting-here__icon"></div>
+          <div class="getting-here__title">Parking</div>
+          <div class="getting-here__copy">Nearest parking at Entertainment Building Car Park.</div>
         </div>
-        <div class="brand-card__image"><div class="brand-card__image-mark"></div></div>
-      </a>
+      </div>
+    </div>
+    <div class="getting-here__image placeholder-box">
+      <div class="getting-here__image-mark"></div>
+    </div>
+  </section>
 
-      <a class="brand-card" href="shop.html">
-        <div class="brand-card__body">
-          <div class="brand-card__name">TRINIDAD</div>
-          <div class="brand-card__meta"><span class="brand-card__meta-mark"></span>HABANA · CUBA</div>
-          <div class="brand-card__copy">Exclusivity, balance and exceptional smoothness.</div>
-          <span class="text-link">EXPLORE →</span>
-        </div>
-        <div class="brand-card__image"><div class="brand-card__image-mark"></div></div>
-      </a>
+  <section class="inside-store">
+    <div class="inside-store__label">INSIDE OUR STORE</div>
+    <div class="inside-store__grid">
+      <div class="inside-store__image placeholder-box"><div class="inside-store__image-mark"></div></div>
+      <div class="inside-store__image placeholder-box"><div class="inside-store__image-mark"></div></div>
+      <div class="inside-store__image placeholder-box"><div class="inside-store__image-mark"></div></div>
+    </div>
+  </section>
 
-      <a class="brand-card" href="shop.html">
-        <div class="brand-card__body">
-          <div class="brand-card__name">ROMEO Y JULIETA</div>
-          <div class="brand-card__meta">HABANA · CUBA</div>
-          <div class="brand-card__copy">A classic romance in every cigar.</div>
-          <span class="text-link">EXPLORE →</span>
-        </div>
-        <div class="brand-card__image"><div class="brand-card__image-mark"></div></div>
-      </a>
-
-      <a class="brand-card" href="shop.html">
-        <div class="brand-card__body">
-          <div class="brand-card__name">BOLÍVAR</div>
-          <div class="brand-card__meta">HABANA · CUBA</div>
-          <div class="brand-card__copy">Full strength. Full flavour. Forever bold.</div>
-          <span class="text-link">EXPLORE →</span>
-        </div>
-        <div class="brand-card__image"><div class="brand-card__image-mark"></div></div>
-      </a>
-
-      <a class="brand-card" href="shop.html">
-        <div class="brand-card__body">
-          <div class="brand-card__name">H. UPMANN</div>
-          <div class="brand-card__meta"><span class="brand-card__meta-mark"></span>HABANA · CUBA</div>
-          <div class="brand-card__copy">Traditional, smooth and consistently excellent.</div>
-          <span class="text-link">EXPLORE →</span>
-        </div>
-        <div class="brand-card__image"><div class="brand-card__image-mark"></div></div>
-      </a>
-
-      <a class="brand-card" href="shop.html">
-        <div class="brand-card__body">
-          <div class="brand-card__name">DIPLOMÁTICOS</div>
-          <div class="brand-card__meta">HABANA · CUBA</div>
-          <div class="brand-card__copy">Heritage and character in perfect harmony.</div>
-          <span class="text-link">EXPLORE →</span>
-        </div>
-        <div class="brand-card__image"><div class="brand-card__image-mark"></div></div>
-      </a>
-
-      <a class="brand-card" href="shop.html">
-        <div class="brand-card__body">
-          <div class="brand-card__name">QUAI D'ORSAY</div>
-          <div class="brand-card__meta">HABANA · CUBA</div>
-          <div class="brand-card__copy">The sophisticated taste of French elegance.</div>
-          <span class="text-link">EXPLORE →</span>
-        </div>
-        <div class="brand-card__image"><div class="brand-card__image-mark"></div></div>
-      </a>
-
-      <a class="brand-card" href="shop.html">
-        <div class="brand-card__body">
-          <div class="brand-card__name">LA GLORIA CUBANA</div>
-          <div class="brand-card__meta">HABANA · CUBA</div>
-          <div class="brand-card__copy">Rich in history. Full of character.</div>
-          <span class="text-link">EXPLORE →</span>
-        </div>
-        <div class="brand-card__image"><div class="brand-card__image-mark"></div></div>
-      </a>
-
-      <a class="brand-card" href="shop.html">
-        <div class="brand-card__body">
-          <div class="brand-card__name">DISCOVER MORE</div>
-          <div class="brand-card__meta"><span class="brand-card__meta-mark"></span></div>
-          <div class="brand-card__copy">Browse our full collection of cigars.</div>
-          <span class="text-link">VIEW ALL CIGARS →</span>
-        </div>
-        <div class="brand-card__image"><div class="brand-card__image-mark"></div></div>
-      </a>
-
+  <section class="personal-service">
+    <div>
+      <div class="personal-service__eyebrow">PERSONAL SERVICE</div>
+      <h2 class="personal-service__title">Experience the collection in person.</h2>
+      <p class="personal-service__copy">Explore our full range of Cuban cigars, rare finds and exclusive editions. Our team is here to help you find the perfect cigar.</p>
+    </div>
+    <div>
+      <div class="personal-service__feature-icon"></div>
+      <div class="personal-service__feature-title">EXPERT ADVICE</div>
+      <div class="personal-service__feature-copy">Our team has deep knowledge and a passion for cigars. We're here to guide you.</div>
+    </div>
+    <div>
+      <div class="personal-service__feature-icon"></div>
+      <div class="personal-service__feature-title">PRIVATE APPOINTMENTS</div>
+      <div class="personal-service__feature-copy">Book a private consultation and enjoy a tailored experience in store.</div>
+    </div>
+    <div class="personal-service__actions">
+      <a class="btn btn--primary" href="#">CONTACT THE STORE →</a>
+      <a class="btn btn--outline-dark" href="#">BOOK AN APPOINTMENT →</a>
     </div>
   </section>
 
@@ -580,9 +589,9 @@
       </div>
       <div>
         <div class="footer__col-title">BRANDS</div>
-        <a class="footer__col-link" href="shop.html">Cohiba</a>
-        <a class="footer__col-link" href="shop.html">Partagás</a>
-        <a class="footer__col-link" href="shop.html">Montecristo</a>
+        <a class="footer__col-link" href="brands.html">Cohiba</a>
+        <a class="footer__col-link" href="brands.html">Partagás</a>
+        <a class="footer__col-link" href="brands.html">Montecristo</a>
         <a class="footer__col-link" href="brands.html">All Brands</a>
       </div>
       <div>
