@@ -25,9 +25,8 @@
       '</div>' +
     '</nav>';
 
-  document.addEventListener('DOMContentLoaded', function () {
-    var mount = document.getElementById('site-header');
-    if (!mount) return;
+  var mount = document.getElementById('site-header');
+  if (mount) {
     mount.outerHTML = HEADER_HTML;
 
     var active = document.body.getAttribute('data-nav-active');
@@ -35,5 +34,5 @@
       var link = document.querySelector('[data-nav-item="' + active + '"]');
       if (link) link.classList.add('nav__link--active');
     }
-  });
+  }
 })();
