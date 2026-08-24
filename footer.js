@@ -48,7 +48,7 @@
         '<span>© 2026 MEET CUBA HONG KONG. ALL RIGHTS RESERVED.</span>' +
         '<div class="footer__bottom-links">' +
           '<a href="#">TERMS &amp; CONDITIONS</a>' +
-          '<a href="#">PRIVACY POLICY</a>' +
+          '<a href="privacy.html">PRIVACY POLICY</a>' +
           '<span>18+ ONLY</span>' +
         '</div>' +
       '</div>' +
