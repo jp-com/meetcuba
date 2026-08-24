@@ -97,9 +97,19 @@
 .policy-accordion__summary:hover { color: var(--ink); }
 .policy-accordion__chevron {
   flex: none;
-  font-size: 11px;
+  width: 11px;
+  height: 11px;
+  font-size: 0;
+  color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%234a453d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
   text-decoration: none;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, background-image 0.2s ease;
+}
+.policy-accordion__summary:hover .policy-accordion__chevron {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='%2317140f' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 .policy-accordion[open] .policy-accordion__chevron { transform: rotate(180deg); }
 .policy-accordion__body { padding-top: 14px; }
