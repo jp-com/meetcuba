@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serie D No.4 — Partagás — Meet Cuba, Hong Kong</title>
+<style>
+  :root {
+    --ink: #17140f;
+    --ink-soft: #4a453d;
+    --ground: #f8f6f2;
+    --ground-alt: #efece5;
+    --line: #e2ddd2;
+    --placeholder: #eae5da;
+    --placeholder-line: #d8d1c1;
+    --gold: #8a7440;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+  .u-label {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 10px;
+  }
+
+  /* Topbar (shared with index.html) */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 40px;
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar__left, .topbar__right {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .topbar__center { color: var(--ink-soft); }
+
+  /* Nav (shared with index.html) */
+  .nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 22px 40px;
+    border-bottom: 1px solid var(--line);
+  }
+  .nav__links { display: flex; align-items: center; gap: 32px; }
+  .nav__links--left { justify-content: flex-start; }
+  .nav__links--right { justify-content: flex-end; }
+  .nav__link { position: relative; padding-bottom: 6px; }
+  .nav__link--active::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 1px;
+    background: var(--ink);
+  }
+  .nav__logo { display: block; text-align: center; }
+  .nav__logo-main {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 26px;
+    letter-spacing: 0.08em;
+  }
+  .nav__logo-sub {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    padding: 20px 40px 0;
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    font-size: 10px;
+  }
+  .breadcrumb a:hover { color: var(--ink); }
+
+  /* Hero */
+  .hero {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 60px;
+    padding: 24px 40px 0;
+  }
+
+  .gallery__main {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: var(--placeholder);
+    border: 1px solid var(--placeholder-line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gallery__main-mark { width: 26%; aspect-ratio: 1; border: 1px solid var(--placeholder-line); }
+  .gallery__arrow {
+    position: absolute;
+    top: 50%; transform: translateY(-50%);
+    width: 30px; height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--ground);
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+  }
+  .gallery__arrow--prev { left: 14px; }
+  .gallery__arrow--next { right: 14px; }
+
+  .gallery__thumbs {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .gallery__thumb {
+    aspect-ratio: 1 / 1;
+    background: var(--placeholder);
+    border: 1px solid var(--placeholder-line);
+  }
+  .gallery__thumb--active { border-color: var(--ink); }
+
+  .product-info__brand { letter-spacing: 0.12em; font-size: 10.5px; font-weight: 600; margin-bottom: 8px; }
+  .product-info__title {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 36px;
+    letter-spacing: 0.02em;
+    margin-bottom: 10px;
+  }
+  .product-info__subtitle { color: var(--ink-soft); font-size: 12.5px; margin-bottom: 20px; }
+  .product-info__price { font-size: 20px; letter-spacing: 0.02em; margin-bottom: 30px; }
+  .product-info__price-label { color: var(--ink-soft); font-size: 11px; letter-spacing: 0.1em; margin-right: 8px; }
+
+  .section-label {
+    letter-spacing: 0.12em;
+    font-size: 10.5px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .format {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 8px;
+  }
+  .format-option {
+    border: 1px solid var(--line);
+    padding: 14px 16px;
+    text-align: left;
+    width: 100%;
+  }
+  .format-option--active { border-color: var(--ink); }
+  .format-option__name { font-size: 13px; margin-bottom: 4px; }
+  .format-option__meta { color: var(--ink-soft); font-size: 11px; margin-bottom: 6px; }
+  .format-option__price { font-size: 12.5px; }
+
+  .format-help {
+    display: block;
+    text-align: right;
+    color: var(--ink-soft);
+    font-size: 10.5px;
+    text-decoration: underline;
+    margin-bottom: 30px;
+  }
+
+  .qty-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+  }
+  .qty-stepper {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--line);
+  }
+  .qty-stepper__btn {
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+  .qty-stepper__value {
+    width: 40px;
+    text-align: center;
+    font-size: 13px;
+  }
+  .stock {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: right;
+  }
+  .stock__dot { width: 6px; height: 6px; border-radius: 50%; background: #4a7a4a; }
+  .stock__label { font-size: 12px; }
+  .stock__sub { color: var(--ink-soft); font-size: 10.5px; }
+
+  .actions { display: flex; gap: 12px; margin-bottom: 26px; }
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    padding: 16px 20px;
+    transition: opacity 0.2s ease;
+  }
+  .btn:hover { opacity: 0.82; }
+  .btn--primary { flex: 1; background: var(--ink); color: var(--ground); }
+  .btn--icon { width: 54px; border: 1px solid var(--line); }
+  .btn--outline { border: 1px solid var(--ink); }
+
+  .info-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 20px 0;
+    border-top: 1px solid var(--line);
+    margin-bottom: 34px;
+  }
+  .info-row__item { display: flex; align-items: center; gap: 10px; }
+  .info-row__icon { width: 22px; height: 22px; flex: none; border: 1px solid var(--placeholder-line); }
+  .info-row__title { font-size: 11.5px; margin-bottom: 2px; }
+  .info-row__sub { color: var(--ink-soft); font-size: 10.5px; }
+
+  /* Specifications panel */
+  .specs { border: 1px solid var(--line); padding: 22px 24px; }
+  .specs__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    font-weight: 600;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 4px;
+  }
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 12px;
+  }
+  .spec-row__label { color: var(--ink-soft); letter-spacing: 0.08em; font-size: 10.5px; }
+  .strength-dots { display: flex; gap: 6px; }
+  .strength-dots__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--placeholder-line); }
+  .strength-dots__dot--filled { background: var(--ink); }
+
+  .accordion-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+    letter-spacing: 0.1em;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .accordion-row:last-child { border-bottom: none; }
+  .accordion-row__chev { color: var(--ink-soft); font-weight: 400; }
+
+  /* About + tasting notes */
+  .content-layout {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 60px;
+    padding: 50px 40px 0;
+  }
+  .about__title {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 16px;
+    letter-spacing: 0.04em;
+    margin-bottom: 16px;
+  }
+  .about__copy { color: var(--ink-soft); font-size: 12.5px; line-height: 1.8; margin-bottom: 26px; }
+
+  .tasting-notes {
+    border: 1px solid var(--line);
+    padding: 22px 20px;
+  }
+  .tasting-notes__label { letter-spacing: 0.12em; font-size: 10.5px; font-weight: 600; margin-bottom: 20px; }
+  .tasting-notes__grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    text-align: center;
+  }
+  .tasting-notes__icon {
+    width: 34px; height: 34px;
+    margin: 0 auto 10px;
+    border: 1px solid var(--placeholder-line);
+  }
+  .tasting-notes__name { color: var(--ink-soft); font-size: 10.5px; }
+
+  /* Related products */
+  .related { padding: 70px 40px 0; }
+  .related__heading {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    letter-spacing: 0.15em;
+    font-size: 11px;
+    color: var(--ink-soft);
+    margin-bottom: 36px;
+  }
+  .related__rule { flex: 1; max-width: 200px; height: 1px; background: var(--line); }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px 18px;
+  }
+  .product-card { position: relative; }
+  .product-card__image {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: var(--placeholder);
+    border: 1px solid var(--placeholder-line);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+  }
+  .product-card:hover .product-card__image { opacity: 0.85; }
+  .product-card__image-mark { width: 30%; aspect-ratio: 1; border: 1px solid var(--placeholder-line); }
+  .product-card__wishlist {
+    position: absolute;
+    top: 12px; right: 12px;
+    width: 26px; height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ground);
+    border: 1px solid var(--line);
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+  }
+  .product-card__wishlist:hover { opacity: 1; }
+  .product-card__brand { letter-spacing: 0.1em; font-size: 10.5px; font-weight: 600; margin-bottom: 4px; }
+  .product-card__name { color: var(--ink-soft); font-size: 12px; margin-bottom: 4px; }
+  .product-card__spec { color: var(--ink-soft); font-size: 10.5px; margin-bottom: 10px; }
+  .product-card__price { font-size: 12.5px; letter-spacing: 0.02em; }
+
+  .view-all {
+    display: flex;
+    justify-content: center;
+    padding: 46px 40px 70px;
+  }
+  .view-all__btn {
+    border: 1px solid var(--ink);
+    padding: 16px 40px;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    transition: opacity 0.2s ease;
+  }
+  .view-all__btn:hover { opacity: 0.7; }
+
+  /* Bag toggle */
+  .bag-toggle { cursor: pointer; }
+
+  /* Cart drawer */
+  body.cart-open { overflow: hidden; }
+
+  .cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(23, 20, 15, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 900;
+  }
+  body.cart-open .cart-overlay { opacity: 1; pointer-events: auto; }
+
+  .cart-drawer {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100vh;
+    width: 460px;
+    max-width: 92vw;
+    background: var(--ground);
+    border-left: 1px solid var(--line);
+    transform: translateX(100%);
+    transition: transform 0.35s ease;
+    z-index: 901;
+    display: flex;
+    flex-direction: column;
+  }
+  body.cart-open .cart-drawer { transform: translateX(0); }
+
+  .cart-drawer__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 40px 0;
+  }
+  .cart-drawer__title {
+    font-family: Georgia, "Times New Roman", serif;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 24px;
+  }
+  .cart-drawer__close { font-size: 20px; line-height: 1; padding: 4px; }
+  .cart-drawer__count {
+    padding: 10px 40px 20px;
+    margin-top: 6px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    font-size: 10.5px;
+  }
+  .cart-drawer__items { flex: 1; overflow-y: auto; padding: 0 40px; }
+  .cart-empty { padding: 60px 0; text-align: center; color: var(--ink-soft); font-size: 12px; }
+
+  .cart-item { display: flex; gap: 20px; padding: 26px 0; border-bottom: 1px solid var(--line); }
+  .cart-item__image {
+    width: 110px; height: 110px; flex: none;
+    background: var(--placeholder);
+    border: 1px solid var(--placeholder-line);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cart-item__image-mark { width: 30%; aspect-ratio: 1; border: 1px solid var(--placeholder-line); }
+  .cart-item__body { flex: 1; display: flex; flex-direction: column; }
+  .cart-item__brand { letter-spacing: 0.1em; font-size: 10px; font-weight: 600; margin-bottom: 6px; }
+  .cart-item__name { font-family: Georgia, "Times New Roman", serif; font-size: 17px; margin-bottom: 4px; }
+  .cart-item__spec { color: var(--ink-soft); font-size: 11px; margin-bottom: 16px; }
+  .cart-item__row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .cart-item__price { font-size: 13px; }
+  .cart-item__remove {
+    align-self: flex-start;
+    font-size: 10.5px;
+    letter-spacing: 0.05em;
+    text-decoration: underline;
+    color: var(--ink-soft);
+  }
+
+  .cart-qty { display: flex; align-items: center; border: 1px solid var(--line); }
+  .cart-qty__btn { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+  .cart-qty__value { width: 30px; text-align: center; font-size: 12px; }
+
+  .cart-drawer__footer { padding: 22px 40px 32px; border-top: 1px solid var(--line); }
+  .cart-drawer__footer .btn { width: 100%; flex: none; }
+  .cart-subtotal-row {
+    display: flex; justify-content: space-between;
+    letter-spacing: 0.08em; font-size: 12px; font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .cart-delivery {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 11px; color: var(--ink-soft); margin-bottom: 10px;
+  }
+  .cart-progress { height: 2px; background: var(--line); margin-bottom: 22px; }
+  .cart-progress__fill { height: 100%; width: 0%; background: var(--ink); transition: width 0.3s ease; }
+  .btn--outline-full {
+    display: block;
+    width: 100%;
+    text-align: center;
+    border: 1px solid var(--ink);
+    padding: 15px;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    margin-top: 12px;
+    transition: opacity 0.2s ease;
+  }
+  .btn--outline-full:hover { opacity: 0.7; }
+  .cart-secure {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    margin-top: 16px;
+    color: var(--ink-soft);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar__left u-label"><span>HONG KONG</span></div>
+    <div class="topbar__center u-label">COMPLIMENTARY DELIVERY IN HONG KONG ON ORDERS OVER HK$2,000</div>
+    <div class="topbar__right u-label">
+      <span>EN</span>
+      <span>ACCOUNT</span>
+      <button class="bag-toggle u-label" data-bag-toggle type="button">BAG (<span data-bag-count>0</span>)</button>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav__links nav__links--left u-label">
+      <span>SEARCH</span>
+      <a class="nav__link nav__link--active" href="shop.html">SHOP</a>
+      <span>BRANDS</span>
+    </div>
+    <a class="nav__logo" href="index.html">
+      <div class="nav__logo-main">MEET CUBA</div>
+      <div class="nav__logo-sub">HONG KONG</div>
+    </a>
+    <div class="nav__links nav__links--right u-label">
+      <span>SPECIAL EDITIONS</span>
+      <span>OUR STORE</span>
+    </div>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="index.html">HOME</a> / <a href="shop.html">CIGARS</a> / <span>PARTAGÁS</span> / <span>SERIE D NO.4</span>
+  </div>
+
+  <section class="hero">
+    <div class="gallery">
+      <div class="gallery__main">
+        <div class="gallery__main-mark"></div>
+        <span class="gallery__arrow gallery__arrow--prev">‹</span>
+        <span class="gallery__arrow gallery__arrow--next">›</span>
+      </div>
+      <div class="gallery__thumbs">
+        <div class="gallery__thumb gallery__thumb--active"></div>
+        <div class="gallery__thumb"></div>
+        <div class="gallery__thumb"></div>
+        <div class="gallery__thumb"></div>
+        <div class="gallery__thumb"></div>
+      </div>
+    </div>
+
+    <div class="product-info">
+      <div class="product-info__brand">PARTAGÁS</div>
+      <h1 class="product-info__title">Serie D No.4</h1>
+      <div class="product-info__subtitle">Robusto · Cuba</div>
+      <div class="product-info__price"><span class="product-info__price-label">FROM</span>HK$3,000</div>
+
+      <div class="section-label">FORMAT</div>
+      <div class="format" id="formatGroup">
+        <button class="format-option format-option--active" type="button" data-price="3000" data-spec="Box of 10 · 124 × 50">
+          <div class="format-option__name">Box of 10</div>
+          <div class="format-option__meta">10 Cigars</div>
+          <div class="format-option__price">HK$3,000</div>
+        </button>
+        <button class="format-option" type="button" data-price="7500" data-spec="Box of 25 · 124 × 50">
+          <div class="format-option__name">Box of 25</div>
+          <div class="format-option__meta">25 Cigars</div>
+          <div class="format-option__price">HK$7,500</div>
+        </button>
+      </div>
+      <a class="format-help" href="#">Which format is right for me?</a>
+
+      <div class="section-label">QUANTITY</div>
+      <div class="qty-row">
+        <div class="qty-stepper">
+          <button class="qty-stepper__btn" type="button" id="qtyMinus">−</button>
+          <span class="qty-stepper__value" id="qtyValue">1</span>
+          <button class="qty-stepper__btn" type="button" id="qtyPlus">+</button>
+        </div>
+        <div class="stock">
+          <span class="stock__dot"></span>
+          <div>
+            <div class="stock__label">IN STOCK</div>
+            <div class="stock__sub">Ready to ship</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn--primary" type="button" id="addToBagBtn">ADD TO BAG</button>
+        <button class="btn btn--icon">♡</button>
+      </div>
+
+      <div class="info-row">
+        <div class="info-row__item">
+          <div class="info-row__icon"></div>
+          <div>
+            <div class="info-row__title">Complimentary delivery</div>
+            <div class="info-row__sub">On orders over HK$2,000</div>
+          </div>
+        </div>
+        <div class="info-row__item">
+          <div class="info-row__icon"></div>
+          <div>
+            <div class="info-row__title">Secure payment</div>
+            <div class="info-row__sub">Encrypted checkout</div>
+          </div>
+        </div>
+        <div class="info-row__item">
+          <div class="info-row__icon"></div>
+          <div>
+            <div class="info-row__title">Need help?</div>
+            <div class="info-row__sub">Contact us</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="specs">
+        <div class="specs__header"><span>SPECIFICATIONS</span><span>︿</span></div>
+        <div class="spec-row"><span class="spec-row__label">ORIGIN</span><span>Cuba</span></div>
+        <div class="spec-row"><span class="spec-row__label">MANUFACTURER</span><span>Partagás</span></div>
+        <div class="spec-row"><span class="spec-row__label">VITOLA</span><span>Robusto</span></div>
+        <div class="spec-row"><span class="spec-row__label">LENGTH</span><span>124 mm</span></div>
+        <div class="spec-row"><span class="spec-row__label">RING GAUGE</span><span>50</span></div>
+        <div class="spec-row">
+          <span class="spec-row__label">STRENGTH</span>
+          <span class="strength-dots">
+            <span class="strength-dots__dot strength-dots__dot--filled"></span>
+            <span class="strength-dots__dot strength-dots__dot--filled"></span>
+            <span class="strength-dots__dot strength-dots__dot--filled"></span>
+            <span class="strength-dots__dot strength-dots__dot--filled"></span>
+            <span class="strength-dots__dot"></span>
+          </span>
+        </div>
+        <div class="spec-row"><span class="spec-row__label">PACKAGING</span><span>Box of 10 / Box of 25</span></div>
+
+        <div class="accordion-row"><span>ABOUT THIS CIGAR</span><span class="accordion-row__chev">⌄</span></div>
+        <div class="accordion-row"><span>DELIVERY &amp; RETURNS</span><span class="accordion-row__chev">⌄</span></div>
+        <div class="accordion-row"><span>STORAGE &amp; HUMIDOR GUIDE</span><span class="accordion-row__chev">⌄</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-layout">
+    <div>
+      <h2 class="about__title">ABOUT THIS CIGAR</h2>
+      <p class="about__copy">
+        A highly regarded cigar in the Robusto format, prized for a rich, well-balanced
+        smoke and a complex aroma. Known for its full character, the profile softens
+        with age into a rounder bouquet, revealing deeper notes over time.
+      </p>
+
+      <div class="tasting-notes">
+        <div class="tasting-notes__label">TASTING NOTES</div>
+        <div class="tasting-notes__grid">
+          <div><div class="tasting-notes__icon"></div><div class="tasting-notes__name">Wood</div></div>
+          <div><div class="tasting-notes__icon"></div><div class="tasting-notes__name">Spice</div></div>
+          <div><div class="tasting-notes__icon"></div><div class="tasting-notes__name">Coffee</div></div>
+          <div><div class="tasting-notes__icon"></div><div class="tasting-notes__name">Earth</div></div>
+          <div><div class="tasting-notes__icon"></div><div class="tasting-notes__name">Leather</div></div>
+          <div><div class="tasting-notes__icon"></div><div class="tasting-notes__name">Hay</div></div>
+        </div>
+      </div>
+    </div>
+    <div></div>
+  </section>
+
+  <section class="related">
+    <div class="related__heading">
+      <span class="related__rule"></span>
+      <span>YOU MAY ALSO LIKE</span>
+      <span class="related__rule"></span>
+    </div>
+    <div class="product-grid">
+
+      <article class="product-card">
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">COHIBA</div>
+        <div class="product-card__name">Siglo VI</div>
+        <div class="product-card__spec">25 Cigars · 150 × 52</div>
+        <div class="product-card__price">HK$24,500</div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">COHIBA</div>
+        <div class="product-card__name">Robusto</div>
+        <div class="product-card__spec">25 Cigars · 124 × 50</div>
+        <div class="product-card__price">HK$14,200</div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">COHIBA</div>
+        <div class="product-card__name">55 Aniversario<br>Edición Limitada 2021</div>
+        <div class="product-card__spec">10 Cigars · 130 × 55</div>
+        <div class="product-card__price">HK$39,500</div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">MONTECRISTO</div>
+        <div class="product-card__name">No.2</div>
+        <div class="product-card__spec">25 Cigars · 156 × 52</div>
+        <div class="product-card__price">HK$5,500</div>
+      </article>
+
+      <article class="product-card">
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">HOYO DE MONTERREY</div>
+        <div class="product-card__name">Epicure No.2</div>
+        <div class="product-card__spec">25 Cigars · 124 × 50</div>
+        <div class="product-card__price">HK$6,200</div>
+      </article>
+
+    </div>
+  </section>
+
+  <div class="view-all">
+    <a class="view-all__btn" href="shop.html">VIEW ALL CIGARS</a>
+  </div>
+
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">Your Bag</h2>
+      <button class="cart-drawer__close" id="cartClose" type="button" aria-label="Close bag">×</button>
+    </div>
+    <div class="cart-drawer__count" id="cartItemsLabel">0 ITEMS</div>
+    <div class="cart-drawer__items" id="cartItems"></div>
+    <div class="cart-drawer__footer">
+      <div class="cart-subtotal-row">
+        <span>SUBTOTAL</span>
+        <span id="cartSubtotal">HK$0</span>
+      </div>
+      <div class="cart-delivery">
+        <span id="cartDeliveryText">Add HK$2,000 more for free delivery</span>
+        <span id="cartDeliveryCheck" style="display:none;">✓</span>
+      </div>
+      <div class="cart-progress"><div class="cart-progress__fill" id="cartProgressFill"></div></div>
+      <a class="btn btn--primary" href="#">CHECKOUT</a>
+      <a class="btn--outline-full" href="#">VIEW BAG</a>
+      <div class="cart-secure">🔒 Secure checkout</div>
+    </div>
+  </aside>
+  <script src="cart.js"></script>
+  <script>
+    (function () {
+      var formatGroup = document.getElementById('formatGroup');
+      var qtyValue = document.getElementById('qtyValue');
+      var qtyMinus = document.getElementById('qtyMinus');
+      var qtyPlus = document.getElementById('qtyPlus');
+      var addToBagBtn = document.getElementById('addToBagBtn');
+
+      function selectedFormat() {
+        return formatGroup.querySelector('.format-option--active');
+      }
+
+      formatGroup.addEventListener('click', function (e) {
+        var btn = e.target.closest('.format-option');
+        if (!btn) return;
+        formatGroup.querySelectorAll('.format-option').forEach(function (el) {
+          el.classList.remove('format-option--active');
+        });
+        btn.classList.add('format-option--active');
+      });
+
+      qtyMinus.addEventListener('click', function () {
+        qtyValue.textContent = Math.max(1, parseInt(qtyValue.textContent, 10) - 1);
+      });
+      qtyPlus.addEventListener('click', function () {
+        qtyValue.textContent = parseInt(qtyValue.textContent, 10) + 1;
+      });
+
+      addToBagBtn.addEventListener('click', function () {
+        var format = selectedFormat();
+        window.MeetCubaCart.addToCart({
+          id: 'partagas-serie-d-no4-' + format.getAttribute('data-price'),
+          brand: 'PARTAGÁS',
+          name: 'Serie D No.4',
+          spec: format.getAttribute('data-spec'),
+          price: parseInt(format.getAttribute('data-price'), 10),
+          qty: parseInt(qtyValue.textContent, 10)
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

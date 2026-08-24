@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cigars — Meet Cuba, Hong Kong</title>
+<style>
+  :root {
+    --ink: #17140f;
+    --ink-soft: #4a453d;
+    --ground: #f8f6f2;
+    --ground-alt: #efece5;
+    --line: #e2ddd2;
+    --placeholder: #eae5da;
+    --placeholder-line: #d8d1c1;
+    --gold: #8a7440;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .u-label {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 10px;
+  }
+
+  /* Topbar */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 40px;
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar__left, .topbar__right {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .topbar__center { color: var(--ink-soft); }
+
+  /* Nav */
+  .nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 22px 40px;
+    border-bottom: 1px solid var(--line);
+  }
+  .nav__links { display: flex; align-items: center; gap: 32px; }
+  .nav__links--left { justify-content: flex-start; }
+  .nav__links--right { justify-content: flex-end; }
+  .nav__link { position: relative; padding-bottom: 6px; }
+  .nav__link--active::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 1px;
+    background: var(--ink);
+  }
+  .nav__logo { display: block; text-align: center; }
+  .nav__logo-main {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 26px;
+    letter-spacing: 0.08em;
+  }
+  .nav__logo-sub {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+  .icon { width: 15px; height: 15px; display: inline-block; }
+
+  /* Page header */
+  .page-header {
+    padding: 40px 40px 0;
+  }
+  .page-header__top {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+  }
+  .page-header__title {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 34px;
+    letter-spacing: 0.03em;
+  }
+  .page-header__count {
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    font-size: 10px;
+  }
+
+  .tabs {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-top: 28px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .tabs__item { color: var(--ink-soft); letter-spacing: 0.08em; font-size: 11px; padding-bottom: 4px; }
+  .tabs__item--active { color: var(--ink); border-bottom: 1px solid var(--ink); }
+
+  .toolbar {
+    display: flex;
+    justify-content: flex-end;
+    padding: 18px 40px 0;
+  }
+  .toolbar__sort { display: flex; align-items: center; gap: 10px; color: var(--ink-soft); letter-spacing: 0.08em; font-size: 10px; }
+  .toolbar__sort strong { color: var(--ink); font-weight: 600; }
+
+  /* Layout */
+  .layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 48px;
+    padding: 24px 40px 60px;
+  }
+
+  /* Filters */
+  .filters__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--ink);
+    margin-bottom: 6px;
+  }
+  .filters__reset { color: var(--ink-soft); letter-spacing: 0.08em; font-size: 10px; }
+
+  .filter-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--line);
+    letter-spacing: 0.1em;
+    font-size: 10.5px;
+  }
+  .filter-group__chev { color: var(--ink-soft); font-size: 10px; }
+
+  .price-block {
+    padding: 18px 0 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  .price-block__label { letter-spacing: 0.1em; font-size: 10.5px; margin-bottom: 14px; }
+  .price-block__inputs { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .price-block__field {
+    flex: 1;
+    border: 1px solid var(--line);
+    padding: 8px 10px;
+    font-size: 11px;
+    color: var(--ink-soft);
+  }
+  .price-block__track {
+    position: relative;
+    height: 2px;
+    background: var(--line);
+  }
+  .price-block__fill {
+    position: absolute;
+    left: 0; width: 18%; height: 100%;
+    background: var(--ink);
+  }
+  .price-block__handle {
+    position: absolute;
+    top: 50%; left: 18%;
+    width: 10px; height: 10px;
+    background: var(--ink);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .special {
+    padding: 18px 0 6px;
+    border-bottom: 1px solid var(--line);
+  }
+  .special__label { letter-spacing: 0.1em; font-size: 10.5px; margin-bottom: 14px; }
+  .special__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 0;
+    font-size: 11.5px;
+    color: var(--ink-soft);
+  }
+  .special__row-left { display: flex; align-items: center; gap: 10px; }
+  .special__box { width: 13px; height: 13px; border: 1px solid var(--placeholder-line); }
+  .special__count { color: var(--ink-soft); font-size: 11px; }
+
+  .filters__clear {
+    display: block;
+    margin-top: 18px;
+    letter-spacing: 0.1em;
+    font-size: 10px;
+    text-decoration: underline;
+    color: var(--ink-soft);
+  }
+
+  .store-promo {
+    margin-top: 40px;
+    border: 1px solid var(--line);
+    padding: 36px 24px;
+    text-align: center;
+  }
+  .store-promo__icon {
+    width: 34px; height: 34px;
+    margin: 0 auto 20px;
+    border: 1px solid var(--placeholder-line);
+  }
+  .store-promo__title {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .store-promo__copy {
+    color: var(--ink-soft);
+    font-size: 11px;
+    line-height: 1.6;
+    margin-bottom: 22px;
+  }
+  .store-promo__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ink);
+    color: var(--ground);
+    padding: 12px 20px;
+    letter-spacing: 0.12em;
+    font-size: 10px;
+  }
+
+  /* Product grid */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px 20px;
+  }
+
+  .product-card { position: relative; }
+
+  .product-card__image {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: var(--placeholder);
+    border: 1px solid var(--placeholder-line);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+  }
+  .product-card:hover .product-card__image { opacity: 0.85; }
+  .product-card__image-mark {
+    width: 30%;
+    aspect-ratio: 1;
+    border: 1px solid var(--placeholder-line);
+  }
+
+  .product-card__badge {
+    position: absolute;
+    top: 12px; left: 12px;
+    background: var(--ground);
+    border: 1px solid var(--line);
+    padding: 5px 9px;
+    letter-spacing: 0.1em;
+    font-size: 8.5px;
+  }
+  .product-card__wishlist {
+    position: absolute;
+    top: 12px; right: 12px;
+    width: 26px; height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ground);
+    border: 1px solid var(--line);
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+  }
+  .product-card__wishlist:hover { opacity: 1; }
+
+  .product-card__brand {
+    letter-spacing: 0.1em;
+    font-size: 10.5px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .product-card__name {
+    color: var(--ink-soft);
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+  .product-card__spec {
+    color: var(--ink-soft);
+    font-size: 10.5px;
+    margin-bottom: 10px;
+  }
+  .product-card__price {
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Pagination */
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 20px 40px 60px;
+    position: relative;
+  }
+  .pagination__page {
+    width: 30px; height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-soft);
+    font-size: 11px;
+  }
+  .pagination__page--active {
+    background: var(--ink);
+    color: var(--ground);
+  }
+  .pagination__arrow { color: var(--ink-soft); }
+  .pagination__view {
+    position: absolute;
+    right: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 0.1em;
+    font-size: 10px;
+    color: var(--ink-soft);
+  }
+  .pagination__view strong { color: var(--ink); }
+
+  /* Buttons (for cart drawer) */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    padding: 16px 24px;
+    transition: opacity 0.2s ease;
+  }
+  .btn:hover { opacity: 0.8; }
+  .btn--primary { background: var(--ink); color: var(--ground); }
+
+  /* Bag toggle */
+  .bag-toggle { cursor: pointer; }
+
+  /* Cart drawer */
+  body.cart-open { overflow: hidden; }
+
+  .cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(23, 20, 15, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 900;
+  }
+  body.cart-open .cart-overlay { opacity: 1; pointer-events: auto; }
+
+  .cart-drawer {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100vh;
+    width: 460px;
+    max-width: 92vw;
+    background: var(--ground);
+    border-left: 1px solid var(--line);
+    transform: translateX(100%);
+    transition: transform 0.35s ease;
+    z-index: 901;
+    display: flex;
+    flex-direction: column;
+  }
+  body.cart-open .cart-drawer { transform: translateX(0); }
+
+  .cart-drawer__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 40px 0;
+  }
+  .cart-drawer__title {
+    font-family: Georgia, "Times New Roman", serif;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 24px;
+  }
+  .cart-drawer__close { font-size: 20px; line-height: 1; padding: 4px; }
+  .cart-drawer__count {
+    padding: 10px 40px 20px;
+    margin-top: 6px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    font-size: 10.5px;
+  }
+  .cart-drawer__items { flex: 1; overflow-y: auto; padding: 0 40px; }
+  .cart-empty { padding: 60px 0; text-align: center; color: var(--ink-soft); font-size: 12px; }
+
+  .cart-item { display: flex; gap: 20px; padding: 26px 0; border-bottom: 1px solid var(--line); }
+  .cart-item__image {
+    width: 110px; height: 110px; flex: none;
+    background: var(--placeholder);
+    border: 1px solid var(--placeholder-line);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cart-item__image-mark { width: 30%; aspect-ratio: 1; border: 1px solid var(--placeholder-line); }
+  .cart-item__body { flex: 1; display: flex; flex-direction: column; }
+  .cart-item__brand { letter-spacing: 0.1em; font-size: 10px; font-weight: 600; margin-bottom: 6px; }
+  .cart-item__name { font-family: Georgia, "Times New Roman", serif; font-size: 17px; margin-bottom: 4px; }
+  .cart-item__spec { color: var(--ink-soft); font-size: 11px; margin-bottom: 16px; }
+  .cart-item__row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .cart-item__price { font-size: 13px; }
+  .cart-item__remove {
+    align-self: flex-start;
+    font-size: 10.5px;
+    letter-spacing: 0.05em;
+    text-decoration: underline;
+    color: var(--ink-soft);
+  }
+
+  .cart-qty { display: flex; align-items: center; border: 1px solid var(--line); }
+  .cart-qty__btn { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+  .cart-qty__value { width: 30px; text-align: center; font-size: 12px; }
+
+  .cart-drawer__footer { padding: 22px 40px 32px; border-top: 1px solid var(--line); }
+  .cart-drawer__footer .btn { width: 100%; flex: none; }
+  .cart-subtotal-row {
+    display: flex; justify-content: space-between;
+    letter-spacing: 0.08em; font-size: 12px; font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .cart-delivery {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 11px; color: var(--ink-soft); margin-bottom: 10px;
+  }
+  .cart-progress { height: 2px; background: var(--line); margin-bottom: 22px; }
+  .cart-progress__fill { height: 100%; width: 0%; background: var(--ink); transition: width 0.3s ease; }
+  .btn--outline-full {
+    display: block;
+    width: 100%;
+    text-align: center;
+    border: 1px solid var(--ink);
+    padding: 15px;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    margin-top: 12px;
+    transition: opacity 0.2s ease;
+  }
+  .btn--outline-full:hover { opacity: 0.7; }
+  .cart-secure {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    margin-top: 16px;
+    color: var(--ink-soft);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar__left u-label">
+      <span>HONG KONG</span>
+    </div>
+    <div class="topbar__center u-label">COMPLIMENTARY DELIVERY IN HONG KONG ON ORDERS OVER HK$2,000</div>
+    <div class="topbar__right u-label">
+      <span>EN</span>
+      <span>ACCOUNT</span>
+      <button class="bag-toggle u-label" data-bag-toggle type="button">BAG (<span data-bag-count>0</span>)</button>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav__links nav__links--left u-label">
+      <span>SEARCH</span>
+      <a class="nav__link nav__link--active" href="shop.html">SHOP</a>
+      <span>BRANDS</span>
+    </div>
+    <a class="nav__logo" href="index.html">
+      <div class="nav__logo-main">MEET CUBA</div>
+      <div class="nav__logo-sub">HONG KONG</div>
+    </a>
+    <div class="nav__links nav__links--right u-label">
+      <span>SPECIAL EDITIONS</span>
+      <span>OUR STORE</span>
+    </div>
+  </nav>
+
+  <header class="page-header">
+    <div class="page-header__top">
+      <h1 class="page-header__title">Cigars</h1>
+      <span class="page-header__count">62 PRODUCTS</span>
+    </div>
+    <div class="tabs">
+      <span class="tabs__item tabs__item--active">ALL</span>
+      <span class="tabs__item">COHIBA</span>
+      <span class="tabs__item">PARTAGÁS</span>
+      <span class="tabs__item">MONTECRISTO</span>
+      <span class="tabs__item">HOYO DE MONTERREY</span>
+      <span class="tabs__item">TRINIDAD</span>
+      <span class="tabs__item">ROMEO Y JULIETA</span>
+      <span class="tabs__item">BOLÍVAR</span>
+      <span class="tabs__item">MORE ▾</span>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="toolbar__sort">SORT BY <strong>POPULAR ▾</strong></div>
+  </div>
+
+  <div class="layout">
+    <aside class="filters">
+      <div class="filters__header">
+        <span class="u-label" style="font-weight:600;">Filter</span>
+        <span class="filters__reset u-label">Reset</span>
+      </div>
+
+      <div class="filter-group"><span>BRAND</span><span class="filter-group__chev">▾</span></div>
+      <div class="filter-group"><span>FORMAT</span><span class="filter-group__chev">▾</span></div>
+      <div class="filter-group"><span>RING GAUGE</span><span class="filter-group__chev">▾</span></div>
+      <div class="filter-group"><span>LENGTH</span><span class="filter-group__chev">▾</span></div>
+      <div class="filter-group"><span>PACK SIZE</span><span class="filter-group__chev">▾</span></div>
+      <div class="filter-group"><span>AVAILABILITY</span><span class="filter-group__chev">▾</span></div>
+
+      <div class="price-block">
+        <div class="price-block__label">PRICE</div>
+        <div class="price-block__inputs">
+          <div class="price-block__field">HK$ 0</div>
+          <div class="price-block__field">HK$ 50,000+</div>
+        </div>
+        <div class="price-block__track">
+          <div class="price-block__fill"></div>
+          <div class="price-block__handle"></div>
+        </div>
+      </div>
+
+      <div class="special">
+        <div class="special__label">SPECIAL RELEASE</div>
+        <div class="special__row">
+          <span class="special__row-left"><span class="special__box"></span>LCDH</span>
+          <span class="special__count">(8)</span>
+        </div>
+        <div class="special__row">
+          <span class="special__row-left"><span class="special__box"></span>LIMITED EDITION</span>
+          <span class="special__count">(12)</span>
+        </div>
+        <div class="special__row">
+          <span class="special__row-left"><span class="special__box"></span>REGIONAL EDITION</span>
+          <span class="special__count">(6)</span>
+        </div>
+        <div class="special__row">
+          <span class="special__row-left"><span class="special__box"></span>GRAN RESERVA</span>
+          <span class="special__count">(5)</span>
+        </div>
+        <div class="special__row">
+          <span class="special__row-left"><span class="special__box"></span>HUMIDOR</span>
+          <span class="special__count">(3)</span>
+        </div>
+      </div>
+
+      <a class="filters__clear" href="#">CLEAR ALL</a>
+
+      <div class="store-promo">
+        <div class="store-promo__icon"></div>
+        <div class="store-promo__title">VISIT OUR<br>HONG KONG STORE</div>
+        <div class="store-promo__copy">Explore our full collection in person with expert advice.</div>
+        <a class="store-promo__cta" href="#">FIND US</a>
+      </div>
+    </aside>
+
+    <main class="product-grid">
+
+      <a class="product-card" href="product.html">
+        <div class="product-card__badge">BESTSELLER</div>
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">COHIBA</div>
+        <div class="product-card__name">Siglo VI</div>
+        <div class="product-card__spec">25 Cigars · 150 × 52</div>
+        <div class="product-card__price">HK$24,500</div>
+      </a>
+
+      <a class="product-card" href="product.html">
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">COHIBA</div>
+        <div class="product-card__name">Robusto</div>
+        <div class="product-card__spec">25 Cigars · 124 × 50</div>
+        <div class="product-card__price">HK$14,200</div>
+      </a>
+
+      <a class="product-card" href="product.html">
+        <div class="product-card__badge">LIMITED EDITION</div>
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">COHIBA</div>
+        <div class="product-card__name">55 Aniversario<br>Edición Limitada 2021</div>
+        <div class="product-card__spec">10 Cigars · 130 × 55</div>
+        <div class="product-card__price">HK$39,500</div>
+      </a>
+
+      <a class="product-card" href="product.html">
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">COHIBA</div>
+        <div class="product-card__name">Travel Humidor</div>
+        <div class="product-card__spec">1 Humidor</div>
+        <div class="product-card__price">HK$55,000</div>
+      </a>
+
+      <a class="product-card" href="product.html">
+        <div class="product-card__badge">LIMITED EDITION</div>
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">COHIBA</div>
+        <div class="product-card__name">Talisman<br>Edición Limitada 2017</div>
+        <div class="product-card__spec">10 Cigars · 154 × 54</div>
+        <div class="product-card__price">HK$35,500</div>
+      </a>
+
+      <a class="product-card" href="product.html">
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">PARTAGÁS</div>
+        <div class="product-card__name">Serie D No.4</div>
+        <div class="product-card__spec">Box of 10 · 124 × 50</div>
+        <div class="product-card__price">HK$3,000</div>
+      </a>
+
+      <a class="product-card" href="product.html">
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">PARTAGÁS</div>
+        <div class="product-card__name">Serie D No.4</div>
+        <div class="product-card__spec">Box of 25 · 124 × 50</div>
+        <div class="product-card__price">HK$7,500</div>
+      </a>
+
+      <a class="product-card" href="product.html">
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">PARTAGÁS</div>
+        <div class="product-card__name">Mille Fleurs</div>
+        <div class="product-card__spec">Box of 10 · 129 × 42</div>
+        <div class="product-card__price">HK$1,800</div>
+      </a>
+
+      <a class="product-card" href="product.html">
+        <div class="product-card__badge">LIMITED EDITION</div>
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">PARTAGÁS</div>
+        <div class="product-card__name">Legado<br>Edición Limitada 2020</div>
+        <div class="product-card__spec">25 Cigars · 157 × 48</div>
+        <div class="product-card__price">HK$16,500</div>
+      </a>
+
+      <a class="product-card" href="product.html">
+        <div class="product-card__badge">GRAN RESERVA</div>
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">PARTAGÁS</div>
+        <div class="product-card__name">E Gran Reserva<br>Cosecha 2015</div>
+        <div class="product-card__spec">15 Cigars · 140 × 54</div>
+        <div class="product-card__price">HK$42,800</div>
+      </a>
+
+      <a class="product-card" href="product.html">
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">MONTECRISTO</div>
+        <div class="product-card__name">No.2</div>
+        <div class="product-card__spec">25 Cigars · 156 × 52</div>
+        <div class="product-card__price">HK$5,500</div>
+      </a>
+
+      <a class="product-card" href="product.html">
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">HOYO DE MONTERREY</div>
+        <div class="product-card__name">Epicure No.2</div>
+        <div class="product-card__spec">25 Cigars · 124 × 50</div>
+        <div class="product-card__price">HK$6,200</div>
+      </a>
+
+      <a class="product-card" href="product.html">
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">ROMEO Y JULIETA</div>
+        <div class="product-card__name">Wide Churchill</div>
+        <div class="product-card__spec">25 Cigars · 130 × 55</div>
+        <div class="product-card__price">HK$6,000</div>
+      </a>
+
+      <a class="product-card" href="product.html">
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">TRINIDAD</div>
+        <div class="product-card__name">Fundadores</div>
+        <div class="product-card__spec">12 Cigars · 192 × 40</div>
+        <div class="product-card__price">HK$4,800</div>
+      </a>
+
+      <a class="product-card" href="product.html">
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">BOLÍVAR</div>
+        <div class="product-card__name">Belicosos Finos</div>
+        <div class="product-card__spec">25 Cigars · 140 × 52</div>
+        <div class="product-card__price">HK$5,800</div>
+      </a>
+
+      <a class="product-card" href="product.html">
+        <div class="product-card__wishlist">♡</div>
+        <div class="product-card__image"><div class="product-card__image-mark"></div></div>
+        <div class="product-card__brand">H. UPMANN</div>
+        <div class="product-card__name">Noellas<br>Glass Jar LCDH</div>
+        <div class="product-card__spec">25 Cigars · 135 × 42</div>
+        <div class="product-card__price">HK$9,800</div>
+      </a>
+
+    </main>
+  </div>
+
+  <div class="pagination">
+    <span class="pagination__arrow">‹</span>
+    <span class="pagination__page pagination__page--active">1</span>
+    <span class="pagination__page">2</span>
+    <span class="pagination__page">3</span>
+    <span class="pagination__page">…</span>
+    <span class="pagination__page">7</span>
+    <span class="pagination__arrow">›</span>
+    <div class="pagination__view">VIEW <strong>24 ▾</strong></div>
+  </div>
+
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">Your Bag</h2>
+      <button class="cart-drawer__close" id="cartClose" type="button" aria-label="Close bag">×</button>
+    </div>
+    <div class="cart-drawer__count" id="cartItemsLabel">0 ITEMS</div>
+    <div class="cart-drawer__items" id="cartItems"></div>
+    <div class="cart-drawer__footer">
+      <div class="cart-subtotal-row">
+        <span>SUBTOTAL</span>
+        <span id="cartSubtotal">HK$0</span>
+      </div>
+      <div class="cart-delivery">
+        <span id="cartDeliveryText">Add HK$2,000 more for free delivery</span>
+        <span id="cartDeliveryCheck" style="display:none;">✓</span>
+      </div>
+      <div class="cart-progress"><div class="cart-progress__fill" id="cartProgressFill"></div></div>
+      <a class="btn btn--primary" href="#">CHECKOUT</a>
+      <a class="btn--outline-full" href="#">VIEW BAG</a>
+      <div class="cart-secure">🔒 Secure checkout</div>
+    </div>
+  </aside>
+  <script src="cart.js"></script>
+</body>
+</html>
