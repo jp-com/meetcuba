@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Serie D No.4 — Partagás — Meet Cuba, Hong Kong</title>
 <link rel="stylesheet" href="footer.css">
+<link rel="stylesheet" href="search.css">
 <style>
   :root {
     --ink: #17140f;
@@ -509,7 +510,7 @@
 
   <nav class="nav">
     <div class="nav__links nav__links--left u-label">
-      <span>SEARCH</span>
+      <button data-search-toggle type="button">SEARCH</button>
       <a class="nav__link nav__link--active" href="shop.html">SHOP</a>
       <a class="nav__link" href="brands.html">BRANDS</a>
     </div>
@@ -522,6 +523,8 @@
       <a class="nav__link" href="store.html">OUR STORE</a>
     </div>
   </nav>
+
+  <div id="site-search"></div>
 
   <div class="breadcrumb">
     <a href="index.html">HOME</a> / <a href="shop.html">CIGARS</a> / <span>PARTAGÁS</span> / <span>SERIE D NO.4</span>
@@ -746,6 +749,7 @@
   </aside>
   <script src="cart.js"></script>
   <script src="footer.js"></script>
+  <script src="search.js"></script>
   <script>
     (function () {
       var formatGroup = document.getElementById('formatGroup');

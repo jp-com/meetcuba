@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cigars — Meet Cuba, Hong Kong</title>
 <link rel="stylesheet" href="footer.css">
+<link rel="stylesheet" href="search.css">
 <style>
   :root {
     --ink: #17140f;
@@ -500,7 +501,7 @@
 
   <nav class="nav">
     <div class="nav__links nav__links--left u-label">
-      <span>SEARCH</span>
+      <button data-search-toggle type="button">SEARCH</button>
       <a class="nav__link nav__link--active" href="shop.html">SHOP</a>
       <a class="nav__link" href="brands.html">BRANDS</a>
     </div>
@@ -513,6 +514,8 @@
       <a class="nav__link" href="store.html">OUR STORE</a>
     </div>
   </nav>
+
+  <div id="site-search"></div>
 
   <header class="page-header">
     <div class="page-header__top">
@@ -788,5 +791,27 @@
   </aside>
   <script src="cart.js"></script>
   <script src="footer.js"></script>
+  <script src="search.js"></script>
+  <script>
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var q = (params.get('q') || '').trim().toLowerCase();
+      if (!q) return;
+
+      var cards = document.querySelectorAll('.product-card');
+      var visibleCount = 0;
+      cards.forEach(function (card) {
+        var text = card.textContent.toLowerCase();
+        var match = text.indexOf(q) !== -1;
+        card.style.display = match ? '' : 'none';
+        if (match) visibleCount++;
+      });
+
+      var countEl = document.querySelector('.page-header__count');
+      if (countEl) {
+        countEl.textContent = visibleCount + ' RESULT' + (visibleCount === 1 ? '' : 'S') + ' FOR “' + q.toUpperCase() + '”';
+      }
+    })();
+  </script>
 </body>
 </html>

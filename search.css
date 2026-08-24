@@ -1,0 +1,156 @@
+/* Search overlay (shared across all pages — see search.js) */
+body.search-open { overflow: hidden; }
+
+.search-overlay {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 850;
+  display: none;
+}
+body.search-open .search-overlay { display: block; }
+
+.search-overlay__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(23, 20, 15, 0.45);
+}
+
+.search-overlay__panel {
+  position: relative;
+  background: var(--ground);
+  border-bottom: 1px solid var(--line);
+  padding: 44px 40px 50px;
+  max-height: 82vh;
+  overflow-y: auto;
+}
+
+.search-overlay__title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 34px;
+  margin-bottom: 24px;
+}
+
+.search-overlay__field {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1px solid var(--ink);
+  padding: 16px 20px;
+  margin-bottom: 40px;
+}
+.search-overlay__icon-search {
+  flex: none;
+  width: 16px; height: 16px;
+  border: 1px solid var(--ink-soft);
+  border-radius: 50%;
+  position: relative;
+}
+.search-overlay__icon-search::after {
+  content: "";
+  position: absolute;
+  width: 6px; height: 1px;
+  background: var(--ink-soft);
+  right: -5px; bottom: 1px;
+  transform: rotate(45deg);
+}
+.search-overlay__input {
+  flex: 1;
+  border: none;
+  background: none;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  color: var(--ink);
+  outline: none;
+}
+.search-overlay__input::placeholder { color: var(--ink-soft); font-family: inherit; }
+.search-overlay__clear {
+  flex: none;
+  font-size: 16px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  display: none;
+}
+.search-overlay__field--has-value .search-overlay__clear { display: block; }
+
+.search-overlay__results {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 0.95fr;
+  gap: 50px;
+}
+
+.search-overlay__col-label {
+  letter-spacing: 0.1em;
+  font-size: 10.5px;
+  color: var(--ink-soft);
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 4px;
+}
+
+.search-result {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+  transition: opacity 0.2s ease;
+}
+.search-result:hover { opacity: 0.65; }
+.search-result__image {
+  width: 56px; height: 56px;
+  flex: none;
+  background: var(--placeholder);
+  border: 1px solid var(--placeholder-line);
+  display: flex; align-items: center; justify-content: center;
+}
+.search-result__image-mark { width: 30%; aspect-ratio: 1; border: 1px solid var(--placeholder-line); }
+.search-result__body { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.search-result__brand { display: block; letter-spacing: 0.08em; font-size: 9.5px; font-weight: 600; margin-bottom: 3px; }
+.search-result__name { display: block; font-family: Georgia, "Times New Roman", serif; font-size: 15px; margin-bottom: 3px; }
+.search-result__spec { display: block; color: var(--ink-soft); font-size: 10.5px; margin-bottom: 4px; }
+.search-result__price { display: block; font-size: 11.5px; }
+.search-result__arrow { flex: none; color: var(--ink-soft); font-size: 14px; }
+
+.search-brand-result {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  transition: opacity 0.2s ease;
+}
+.search-brand-result:hover { opacity: 0.65; }
+.search-brand-result__icon {
+  width: 38px; height: 38px;
+  flex: none;
+  border-radius: 50%;
+  border: 1px solid var(--placeholder-line);
+  background: var(--placeholder);
+}
+.search-brand-result__name { flex: 1; font-family: Georgia, "Times New Roman", serif; font-size: 14px; }
+.search-brand-result__arrow { flex: none; color: var(--ink-soft); font-size: 14px; }
+
+.search-overlay__viewall {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.1em;
+  font-size: 10.5px;
+  text-decoration: underline;
+  margin-top: 18px;
+}
+
+.search-suggest-list { list-style: none; margin-bottom: 30px; }
+.search-suggest-list:last-child { margin-bottom: 0; }
+.search-suggest-list__item { margin-bottom: 4px; }
+.search-suggest-list__link {
+  display: block;
+  padding: 7px 0;
+  font-size: 12.5px;
+  text-decoration: underline;
+  color: var(--ink-soft);
+  transition: color 0.2s ease;
+}
+.search-suggest-list__link:hover { color: var(--ink); }
+
+.search-overlay__empty { color: var(--ink-soft); font-size: 12px; padding: 20px 0; }
