@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cookie Policy — Meet Cuba, Hong Kong</title>
+<link rel="stylesheet" href="footer.css">
+<link rel="stylesheet" href="policy.css">
+<style>
+  :root {
+    --ink: #17140f;
+    --ink-soft: #4a453d;
+    --ground: #f8f6f2;
+    --ground-alt: #efece5;
+    --line: #e2ddd2;
+    --placeholder: #eae5da;
+    --placeholder-line: #d8d1c1;
+    --gold: #8a7440;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { overscroll-behavior: none; scroll-behavior: smooth; }
+
+  body {
+    overscroll-behavior: none;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+  .u-label {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 10px;
+  }
+
+  /* Topbar (shared) */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 40px;
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar__left, .topbar__right { display: flex; align-items: center; gap: 28px; }
+  .topbar__center { color: var(--ink-soft); }
+
+  /* Nav (shared) */
+  .nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 22px 40px;
+    border-bottom: 1px solid var(--line);
+  }
+  .nav__links { display: flex; align-items: center; gap: 32px; }
+  .nav__links--left { justify-content: flex-start; }
+  .nav__links--right { justify-content: flex-end; }
+  .nav__link { position: relative; }
+  .nav__logo { display: block; text-align: center; }
+  .nav__logo-main {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 26px;
+    letter-spacing: 0.08em;
+  }
+  .nav__logo-sub {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+
+  section { padding: 0 40px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    padding: 16px 24px;
+    transition: opacity 0.2s ease;
+  }
+  .btn:hover { opacity: 0.8; }
+  .btn--primary { background: var(--ink); color: var(--ground); }
+
+  /* Trust strip */
+  .trust-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 40px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .trust-strip__item { display: flex; align-items: center; gap: 14px; }
+  .trust-strip__icon { width: 24px; height: 24px; flex: none; border: 1px solid var(--placeholder-line); }
+  .trust-strip__title { font-size: 11.5px; letter-spacing: 0.04em; margin-bottom: 2px; }
+  .trust-strip__sub { color: var(--ink-soft); font-size: 10.5px; }
+
+  /* Bag toggle */
+  .bag-toggle { cursor: pointer; }
+
+  /* Cart drawer */
+  body.cart-open { overflow: hidden; }
+
+  .cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(23, 20, 15, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 900;
+  }
+  body.cart-open .cart-overlay { opacity: 1; pointer-events: auto; }
+
+  .cart-drawer {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100vh;
+    width: 460px;
+    max-width: 92vw;
+    background: var(--ground);
+    border-left: 1px solid var(--line);
+    transform: translateX(100%);
+    transition: transform 0.35s ease;
+    z-index: 901;
+    display: flex;
+    flex-direction: column;
+  }
+  body.cart-open .cart-drawer { transform: translateX(0); }
+
+  .cart-drawer__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 40px 0;
+  }
+  .cart-drawer__title {
+    font-family: Georgia, "Times New Roman", serif;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 24px;
+  }
+  .cart-drawer__close { font-size: 20px; line-height: 1; padding: 4px; }
+  .cart-drawer__count {
+    padding: 10px 40px 20px;
+    margin-top: 6px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    font-size: 10.5px;
+  }
+  .cart-drawer__items { flex: 1; overflow-y: auto; padding: 0 40px; }
+  .cart-empty { padding: 60px 0; text-align: center; color: var(--ink-soft); font-size: 12px; }
+
+  .cart-item { display: flex; gap: 20px; padding: 26px 0; border-bottom: 1px solid var(--line); }
+  .cart-item__image {
+    width: 110px; height: 110px; flex: none;
+    background: var(--placeholder);
+    border: 1px solid var(--placeholder-line);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cart-item__image-mark { width: 30%; aspect-ratio: 1; border: 1px solid var(--placeholder-line); }
+  .cart-item__body { flex: 1; display: flex; flex-direction: column; }
+  .cart-item__brand { letter-spacing: 0.1em; font-size: 10px; font-weight: 600; margin-bottom: 6px; }
+  .cart-item__name { font-family: Georgia, "Times New Roman", serif; font-size: 17px; margin-bottom: 4px; }
+  .cart-item__spec { color: var(--ink-soft); font-size: 11px; margin-bottom: 16px; }
+  .cart-item__row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .cart-item__price { font-size: 13px; }
+  .cart-item__remove {
+    align-self: flex-start;
+    font-size: 10.5px;
+    letter-spacing: 0.05em;
+    text-decoration: underline;
+    color: var(--ink-soft);
+  }
+
+  .cart-qty { display: flex; align-items: center; border: 1px solid var(--line); }
+  .cart-qty__btn { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+  .cart-qty__value { width: 30px; text-align: center; font-size: 12px; }
+
+  .cart-drawer__footer { padding: 22px 40px 32px; border-top: 1px solid var(--line); }
+  .cart-drawer__footer .btn { width: 100%; flex: none; }
+  .cart-subtotal-row {
+    display: flex; justify-content: space-between;
+    letter-spacing: 0.08em; font-size: 12px; font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .cart-delivery {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 11px; color: var(--ink-soft); margin-bottom: 10px;
+  }
+  .cart-progress { height: 2px; background: var(--line); margin-bottom: 22px; }
+  .cart-progress__fill { height: 100%; width: 0%; background: var(--ink); transition: width 0.3s ease; }
+  .btn--outline-full {
+    display: block;
+    width: 100%;
+    text-align: center;
+    border: 1px solid var(--ink);
+    padding: 15px;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    margin-top: 12px;
+    transition: opacity 0.2s ease;
+  }
+  .btn--outline-full:hover { opacity: 0.7; }
+  .cart-secure {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    margin-top: 16px;
+    color: var(--ink-soft);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar__left u-label"><span>HONG KONG</span></div>
+    <div class="topbar__center u-label">COMPLIMENTARY DELIVERY IN HONG KONG ON ORDERS OVER HK$2,000</div>
+    <div class="topbar__right u-label">
+      <span>EN</span>
+      <span>ACCOUNT</span>
+      <button class="bag-toggle u-label" data-bag-toggle type="button">BAG (<span data-bag-count>0</span>)</button>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav__links nav__links--left u-label">
+      <span>SEARCH</span>
+      <a class="nav__link" href="shop.html">SHOP</a>
+      <a class="nav__link" href="brands.html">BRANDS</a>
+    </div>
+    <a class="nav__logo" href="index.html">
+      <div class="nav__logo-main">MEET CUBA</div>
+      <div class="nav__logo-sub">HONG KONG</div>
+    </a>
+    <div class="nav__links nav__links--right u-label">
+      <span>SPECIAL EDITIONS</span>
+      <a class="nav__link" href="store.html">OUR STORE</a>
+    </div>
+  </nav>
+
+  <section class="policy-header">
+    <h1 class="policy-header__title">Cookie Policy</h1>
+    <div class="policy-header__updated">Last updated: 25 August 2026</div>
+    <div class="policy-header__intro">
+      <p>This Cookie Policy explains how Meet Cuba uses cookies and similar technologies when you visit or interact with our website.</p>
+      <p>It should be read together with our Privacy Policy, which explains more generally how we collect, use, store and protect personal data.</p>
+      <p>For the purposes of this policy, "Meet Cuba", "we", "us" and "our" refer to:</p>
+    </div>
+  </section>
+
+  <section style="padding-bottom: 10px;">
+    <ul style="margin-left: 18px; color: var(--ink-soft); font-size: 12.5px; line-height: 1.9;">
+      <li>Trading name: Meet Cuba</li>
+      <li>Website: www.meetcuba.com.hk</li>
+      <li>Privacy enquiries: privacy@meetcuba.com.hk</li>
+    </ul>
+  </section>
+
+  <section class="policy-layout">
+    <nav class="policy-toc" id="policyToc">
+      <div class="policy-toc__label">ON THIS PAGE</div>
+      <ol class="policy-toc__list">
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-1">1.&nbsp; What Are Cookies?</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-2">2.&nbsp; Are Cookies Personal Data?</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-3">3.&nbsp; Why We Use Cookies</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-4">4.&nbsp; Types of Cookies We Use</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-5">5.&nbsp; First-Party and Third-Party Cookies</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-6">6.&nbsp; Cookies We Currently Use</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-7">7.&nbsp; Cookie Preferences</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-8">8.&nbsp; Managing Cookies Through Your Browser</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-9">9.&nbsp; Similar Technologies</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-10">10.&nbsp; Analytics</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-11">11.&nbsp; Payment and Checkout Technologies</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-12">12.&nbsp; Online Behavioural Tracking</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-13">13.&nbsp; Direct Marketing</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-14">14.&nbsp; How Long Cookies Remain on Your Device</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-15">15.&nbsp; Security</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-16">16.&nbsp; Changes to This Cookie Policy</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-17">17.&nbsp; Contact Us</a></li>
+      </ol>
+    </nav>
+
+    <div class="policy-content">
+
+      <div class="policy-section" id="section-1">
+        <h2 class="policy-section__title">1.&nbsp;&nbsp;What Are Cookies?</h2>
+        <p>Cookies are small text files or identifiers that are stored on your browser or device when you visit a website.</p>
+        <p>They allow websites to recognise your browser or device and may be used to:</p>
+        <ul>
+          <li>keep a shopping bag active;</li>
+          <li>maintain a secure session;</li>
+          <li>remember preferences;</li>
+          <li>enable account functionality;</li>
+          <li>process checkout;</li>
+          <li>prevent fraud;</li>
+          <li>understand how a website is being used; and</li>
+          <li>where permitted, provide measurement or other optional functionality.</li>
+        </ul>
+        <p>Some cookies expire when you close your browser, while others may remain on your device for a defined period.</p>
+      </div>
+
+      <div class="policy-section" id="section-2">
+        <h2 class="policy-section__title">2.&nbsp;&nbsp;Are Cookies Personal Data?</h2>
+        <p>Cookies do not always contain personal data.</p>
+        <p>However, information collected through cookies or similar technologies may constitute personal data where it can reasonably be linked, directly or indirectly, to an identifiable individual.</p>
+        <p>Where information collected through cookies constitutes personal data, we handle it in accordance with our Privacy Policy and applicable Hong Kong data-protection requirements.</p>
+      </div>
+
+      <div class="policy-section" id="section-3">
+        <h2 class="policy-section__title">3.&nbsp;&nbsp;Why We Use Cookies</h2>
+        <p>We may use cookies and similar technologies for the following purposes:</p>
+
+        <div class="policy-section__subtitle">Operating our website</div>
+        <p>To provide functions necessary for the website and online store to work correctly.</p>
+
+        <div class="policy-section__subtitle">Shopping and checkout</div>
+        <p>To remember products placed in your shopping bag, maintain your session and facilitate checkout.</p>
+
+        <div class="policy-section__subtitle">Security</div>
+        <p>To help protect our website, customers and transactions against fraud, abuse and unauthorised access.</p>
+
+        <div class="policy-section__subtitle">Remembering preferences</div>
+        <p>To remember choices such as language, region or other website settings where applicable.</p>
+
+        <div class="policy-section__subtitle">Website performance and analytics</div>
+        <p>Where enabled, to understand how visitors use our website, identify technical issues and improve website performance.</p>
+
+        <div class="policy-section__subtitle">Other optional purposes</div>
+        <p>Where permitted and enabled, cookies may be used for additional measurement, personalisation or other purposes described to you when those cookies are offered.</p>
+      </div>
+
+      <div class="policy-section" id="section-4">
+        <h2 class="policy-section__title">4.&nbsp;&nbsp;Types of Cookies We Use</h2>
+        <p>Our website may use the following categories of cookies.</p>
+
+        <div class="policy-section__subtitle">Strictly Necessary Cookies</div>
+        <p>These cookies are required for the website to function properly.</p>
+        <p>They may be used for:</p>
+        <ul>
+          <li>shopping-bag functionality;</li>
+          <li>secure checkout;</li>
+          <li>account authentication;</li>
+          <li>fraud prevention;</li>
+          <li>website security;</li>
+          <li>session management;</li>
+          <li>load balancing; and</li>
+          <li>remembering privacy choices.</li>
+        </ul>
+        <p>Because these cookies are necessary to provide functionality you request, they generally cannot be disabled through our cookie-preference controls.</p>
+        <p>You may still be able to block them through your browser, but doing so may cause parts of the website to stop working correctly.</p>
+
+        <div class="policy-section__subtitle">Functional Cookies</div>
+        <p>Functional cookies allow the website to remember choices you make and provide enhanced functionality.</p>
+        <p>These may include:</p>
+        <ul>
+          <li>language preference;</li>
+          <li>location or region;</li>
+          <li>display preferences; and</li>
+          <li>previously selected website settings.</li>
+        </ul>
+        <p>If you do not allow these cookies, certain convenience features may not operate as intended.</p>
+
+        <div class="policy-section__subtitle">Analytics and Performance Cookies</div>
+        <p>Where enabled, analytics cookies help us understand how visitors interact with our website.</p>
+        <p>They may collect information such as:</p>
+        <ul>
+          <li>pages viewed;</li>
+          <li>navigation paths;</li>
+          <li>time spent on pages;</li>
+          <li>device type;</li>
+          <li>browser type;</li>
+          <li>approximate technical location information;</li>
+          <li>referring website; and</li>
+          <li>website errors or performance information.</li>
+        </ul>
+        <p>We use this information to understand general website usage and improve our services.</p>
+        <p>Where analytics information can identify or be linked to an individual, it will be handled as personal data in accordance with our Privacy Policy.</p>
+
+        <div class="policy-section__subtitle">Marketing and Advertising Cookies</div>
+        <p>Meet Cuba will only use marketing, advertising or behavioural-tracking cookies where their use is permitted by applicable law.</p>
+        <p>Such technologies may be capable of:</p>
+        <ul>
+          <li>recognising visitors across sessions;</li>
+          <li>recording browsing activity;</li>
+          <li>measuring advertising activity;</li>
+          <li>building profiles based on interests or behaviour; or</li>
+          <li>enabling targeted communications.</li>
+        </ul>
+        <p>Given the legal restrictions applicable to the advertising and promotion of tobacco products, we will not deploy cookies for tobacco-product advertising or promotional targeting unless we are satisfied that the proposed use is permitted by applicable law.</p>
+        <p>If marketing cookies involving personal data are used, any additional notices or consents required by applicable law will be provided.</p>
+      </div>
+
+      <div class="policy-section" id="section-5">
+        <h2 class="policy-section__title">5.&nbsp;&nbsp;First-Party and Third-Party Cookies</h2>
+        <p>Cookies may be set either by Meet Cuba or by third parties providing services to us.</p>
+
+        <div class="policy-section__subtitle">First-party cookies</div>
+        <p>These are set directly by our website and are commonly used for functions such as:</p>
+        <ul>
+          <li>shopping bags;</li>
+          <li>sessions;</li>
+          <li>account access;</li>
+          <li>preferences; and</li>
+          <li>security.</li>
+        </ul>
+
+        <div class="policy-section__subtitle">Third-party cookies</div>
+        <p>Certain service providers may set or access cookies when their technology is used on our website.</p>
+        <p>These providers may include, where applicable:</p>
+        <ul>
+          <li>our ecommerce platform;</li>
+          <li>payment providers;</li>
+          <li>website hosting providers;</li>
+          <li>security providers;</li>
+          <li>analytics providers; and</li>
+          <li>other technology providers.</li>
+        </ul>
+        <p>Third-party providers may process information in accordance with their own privacy and cookie policies as well as their agreements with us.</p>
+      </div>
+
+      <div class="policy-section" id="section-6">
+        <h2 class="policy-section__title">6.&nbsp;&nbsp;Cookies We Currently Use</h2>
+        <p>The specific cookies used on our website may change as our technology and services change.</p>
+        <p>This website is currently a design preview and does not yet set any cookies beyond what a browser stores locally for basic cart functionality (via <code>localStorage</code>, not a cookie). The table below will be completed with the cookies actually deployed before the site goes live.</p>
+        <table class="policy-table">
+          <thead>
+            <tr>
+              <th>Cookie / Provider</th>
+              <th>Purpose</th>
+              <th>Category</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>—</td><td>Not yet in use</td><td>Strictly Necessary</td><td>—</td></tr>
+            <tr><td>—</td><td>Not yet in use</td><td>Functional</td><td>—</td></tr>
+            <tr><td>—</td><td>Not yet in use</td><td>Analytics</td><td>—</td></tr>
+            <tr><td>—</td><td>Not yet in use</td><td>Marketing</td><td>—</td></tr>
+          </tbody>
+        </table>
+        <p>We periodically review the technologies used on our website and update this policy where appropriate.</p>
+      </div>
+
+      <div class="policy-section" id="section-7">
+        <h2 class="policy-section__title">7.&nbsp;&nbsp;Cookie Preferences</h2>
+        <p>Where our website offers cookie-preference controls, you may use them to accept or reject optional categories of cookies.</p>
+        <p>Cookie preference controls are not yet available on this website; this section will be updated when they are implemented.</p>
+        <p>Your choices may be remembered using a necessary cookie so that we do not need to ask you for the same preference every time you visit.</p>
+        <p>Strictly necessary cookies may continue to operate because they are required to provide core website functions.</p>
+      </div>
+
+      <div class="policy-section" id="section-8">
+        <h2 class="policy-section__title">8.&nbsp;&nbsp;Managing Cookies Through Your Browser</h2>
+        <p>Most web browsers allow you to manage cookies through their settings.</p>
+        <p>Depending on your browser, you may be able to:</p>
+        <ul>
+          <li>view stored cookies;</li>
+          <li>delete cookies;</li>
+          <li>block all cookies;</li>
+          <li>block third-party cookies;</li>
+          <li>restrict certain websites from setting cookies; or</li>
+          <li>receive notifications when cookies are being set.</li>
+        </ul>
+        <p>Please refer to your browser's help or privacy settings for instructions.</p>
+        <p>Blocking or deleting cookies may affect the functionality of our website.</p>
+        <p>For example, you may be unable to:</p>
+        <ul>
+          <li>keep products in your shopping bag;</li>
+          <li>remain signed into your account;</li>
+          <li>complete certain parts of checkout;</li>
+          <li>retain website preferences; or</li>
+          <li>use other functions that depend on cookies.</li>
+        </ul>
+      </div>
+
+      <div class="policy-section" id="section-9">
+        <h2 class="policy-section__title">9.&nbsp;&nbsp;Similar Technologies</h2>
+        <p>In addition to conventional browser cookies, our website or service providers may use similar technologies where appropriate.</p>
+        <p>These may include:</p>
+        <ul>
+          <li>local storage;</li>
+          <li>session storage;</li>
+          <li>pixels;</li>
+          <li>tags;</li>
+          <li>software development tools; or</li>
+          <li>other technologies that store or access information on a browser or device.</li>
+        </ul>
+        <p>Where these technologies perform functions similar to cookies, references to "cookies" in this policy should generally be understood to include them where appropriate.</p>
+      </div>
+
+      <div class="policy-section" id="section-10">
+        <h2 class="policy-section__title">10.&nbsp;&nbsp;Analytics</h2>
+        <p>If we use an analytics service, information collected may be used to understand website performance and how visitors navigate the site.</p>
+        <p>We aim to configure analytics tools in a manner appropriate to their purpose and to avoid collecting information that is unnecessary or excessive.</p>
+        <p>Where reasonably available, we may use aggregated or de-identified information for analytics purposes.</p>
+        <p>Our current analytics provider, if any, is:</p>
+        <p><strong>Provider:</strong> None<br><strong>Purpose:</strong> Not applicable — no analytics service is currently integrated</p>
+      </div>
+
+      <div class="policy-section" id="section-11">
+        <h2 class="policy-section__title">11.&nbsp;&nbsp;Payment and Checkout Technologies</h2>
+        <p>Our payment and ecommerce providers may use cookies or similar technologies where necessary to:</p>
+        <ul>
+          <li>maintain a checkout session;</li>
+          <li>process transactions;</li>
+          <li>authenticate payments;</li>
+          <li>detect fraudulent activity; and</li>
+          <li>protect payment security.</li>
+        </ul>
+        <p>These technologies may be necessary for us to provide secure online purchasing functionality.</p>
+        <p>Payment providers may process information according to their own privacy policies.</p>
+        <p>Our current payment provider(s): to be confirmed — no payment provider is currently integrated.</p>
+      </div>
+
+      <div class="policy-section" id="section-12">
+        <h2 class="policy-section__title">12.&nbsp;&nbsp;Online Behavioural Tracking</h2>
+        <p>We do not intend to collect more information about your browsing behaviour than is reasonably necessary for the purposes described in this policy.</p>
+        <p>Where technology is used to track the behaviour or preferences of identifiable users, we will provide appropriate information regarding:</p>
+        <ul>
+          <li>what information is collected;</li>
+          <li>why it is collected;</li>
+          <li>how it is collected;</li>
+          <li>whether third parties are involved;</li>
+          <li>how long information is retained; and</li>
+          <li>what choices are available to you.</li>
+        </ul>
+        <p>We will not knowingly use covert tracking methods to collect personal data.</p>
+      </div>
+
+      <div class="policy-section" id="section-13">
+        <h2 class="policy-section__title">13.&nbsp;&nbsp;Direct Marketing</h2>
+        <p>Information collected through cookies will not be used for direct marketing involving personal data unless the applicable requirements for such use have been satisfied.</p>
+        <p>Where required, you will be informed:</p>
+        <ul>
+          <li>that we intend to use personal data for direct marketing;</li>
+          <li>what types of personal data would be used;</li>
+          <li>what classes of marketing subjects would be involved; and</li>
+          <li>how you can give or withhold your consent.</li>
+        </ul>
+        <p>You may ask us to stop using your personal data for direct marketing at any time and without charge.</p>
+        <p>Please see our Privacy Policy for further information.</p>
+      </div>
+
+      <div class="policy-section" id="section-14">
+        <h2 class="policy-section__title">14.&nbsp;&nbsp;How Long Cookies Remain on Your Device</h2>
+        <p>The length of time a cookie remains on your device depends on the type of cookie.</p>
+
+        <div class="policy-section__subtitle">Session cookies</div>
+        <p>These generally expire when you close your browser or end your session.</p>
+
+        <div class="policy-section__subtitle">Persistent cookies</div>
+        <p>These remain on your device for a specified period or until you delete them.</p>
+
+        <p>We aim to use reasonable expiry periods appropriate to the purpose of each cookie.</p>
+        <p>The applicable retention period for specific cookies should be shown in the Cookies We Currently Use section above.</p>
+      </div>
+
+      <div class="policy-section" id="section-15">
+        <h2 class="policy-section__title">15.&nbsp;&nbsp;Security</h2>
+        <p>Where information collected through cookies constitutes personal data, we take reasonable measures to protect it against unauthorised or accidental access, processing, disclosure, alteration, loss or misuse.</p>
+        <p>Where appropriate and technically available, we also expect service providers processing cookie-related information on our behalf to maintain suitable security measures.</p>
+        <p>No internet-based system can, however, be guaranteed to be completely secure.</p>
+      </div>
+
+      <div class="policy-section" id="section-16">
+        <h2 class="policy-section__title">16.&nbsp;&nbsp;Changes to This Cookie Policy</h2>
+        <p>We may update this Cookie Policy from time to time to reflect:</p>
+        <ul>
+          <li>changes to our website;</li>
+          <li>new technologies;</li>
+          <li>changes to the cookies we use;</li>
+          <li>changes to our service providers; or</li>
+          <li>changes in applicable legal or regulatory requirements.</li>
+        </ul>
+        <p>The latest version will be published on this page together with the date on which it was last updated.</p>
+      </div>
+
+      <div class="policy-section" id="section-17">
+        <h2 class="policy-section__title">17.&nbsp;&nbsp;Contact Us</h2>
+        <p>If you have questions about our use of cookies, this Cookie Policy or the way we handle personal data, please contact:</p>
+        <p><strong>Meet Cuba</strong><br>Shop 12, G/F, Entertainment Building<br>30 Queen's Road Central, Central<br>Hong Kong</p>
+        <p>Email: privacy@meetcuba.com.hk<br>Telephone: +852 2543 4288</p>
+        <p>For more information about how we handle personal data, please see our Privacy Policy.</p>
+        <div class="policy-contact">
+          <div class="policy-contact__icon"></div>
+          <span>privacy@meetcuba.com.hk</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="trust-strip">
+    <div class="trust-strip__item">
+      <div class="trust-strip__icon"></div>
+      <div>
+        <div class="trust-strip__title">Complimentary Delivery</div>
+        <div class="trust-strip__sub">On orders over HK$2,000</div>
+      </div>
+    </div>
+    <div class="trust-strip__item">
+      <div class="trust-strip__icon"></div>
+      <div>
+        <div class="trust-strip__title">Secure Payment</div>
+        <div class="trust-strip__sub">Encrypted checkout</div>
+      </div>
+    </div>
+    <div class="trust-strip__item">
+      <div class="trust-strip__icon"></div>
+      <div>
+        <div class="trust-strip__title">Authenticity Guaranteed</div>
+        <div class="trust-strip__sub">All cigars 100% authentic</div>
+      </div>
+    </div>
+    <div class="trust-strip__item">
+      <div class="trust-strip__icon"></div>
+      <div>
+        <div class="trust-strip__title">Expert Support</div>
+        <div class="trust-strip__sub">We're here to help</div>
+      </div>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">Your Bag</h2>
+      <button class="cart-drawer__close" id="cartClose" type="button" aria-label="Close bag">×</button>
+    </div>
+    <div class="cart-drawer__count" id="cartItemsLabel">0 ITEMS</div>
+    <div class="cart-drawer__items" id="cartItems"></div>
+    <div class="cart-drawer__footer">
+      <div class="cart-subtotal-row">
+        <span>SUBTOTAL</span>
+        <span id="cartSubtotal">HK$0</span>
+      </div>
+      <div class="cart-delivery">
+        <span id="cartDeliveryText">Add HK$2,000 more for free delivery</span>
+        <span id="cartDeliveryCheck" style="display:none;">✓</span>
+      </div>
+      <div class="cart-progress"><div class="cart-progress__fill" id="cartProgressFill"></div></div>
+      <a class="btn btn--primary" href="#">CHECKOUT</a>
+      <a class="btn--outline-full" href="#">VIEW BAG</a>
+      <div class="cart-secure">🔒 Secure checkout</div>
+    </div>
+  </aside>
+  <script src="cart.js"></script>
+  <script src="footer.js"></script>
+  <script src="policy.js"></script>
+</body>
+</html>

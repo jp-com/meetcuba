@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms &amp; Conditions — Meet Cuba, Hong Kong</title>
+<link rel="stylesheet" href="footer.css">
+<link rel="stylesheet" href="policy.css">
+<style>
+  :root {
+    --ink: #17140f;
+    --ink-soft: #4a453d;
+    --ground: #f8f6f2;
+    --ground-alt: #efece5;
+    --line: #e2ddd2;
+    --placeholder: #eae5da;
+    --placeholder-line: #d8d1c1;
+    --gold: #8a7440;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { overscroll-behavior: none; scroll-behavior: smooth; }
+
+  body {
+    overscroll-behavior: none;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+  .u-label {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 10px;
+  }
+
+  /* Topbar (shared) */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 40px;
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar__left, .topbar__right { display: flex; align-items: center; gap: 28px; }
+  .topbar__center { color: var(--ink-soft); }
+
+  /* Nav (shared) */
+  .nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 22px 40px;
+    border-bottom: 1px solid var(--line);
+  }
+  .nav__links { display: flex; align-items: center; gap: 32px; }
+  .nav__links--left { justify-content: flex-start; }
+  .nav__links--right { justify-content: flex-end; }
+  .nav__link { position: relative; }
+  .nav__logo { display: block; text-align: center; }
+  .nav__logo-main {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 26px;
+    letter-spacing: 0.08em;
+  }
+  .nav__logo-sub {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+
+  section { padding: 0 40px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    padding: 16px 24px;
+    transition: opacity 0.2s ease;
+  }
+  .btn:hover { opacity: 0.8; }
+  .btn--primary { background: var(--ink); color: var(--ground); }
+
+  /* Trust strip */
+  .trust-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 40px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .trust-strip__item { display: flex; align-items: center; gap: 14px; }
+  .trust-strip__icon { width: 24px; height: 24px; flex: none; border: 1px solid var(--placeholder-line); }
+  .trust-strip__title { font-size: 11.5px; letter-spacing: 0.04em; margin-bottom: 2px; }
+  .trust-strip__sub { color: var(--ink-soft); font-size: 10.5px; }
+
+  /* Bag toggle */
+  .bag-toggle { cursor: pointer; }
+
+  /* Cart drawer */
+  body.cart-open { overflow: hidden; }
+
+  .cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(23, 20, 15, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 900;
+  }
+  body.cart-open .cart-overlay { opacity: 1; pointer-events: auto; }
+
+  .cart-drawer {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100vh;
+    width: 460px;
+    max-width: 92vw;
+    background: var(--ground);
+    border-left: 1px solid var(--line);
+    transform: translateX(100%);
+    transition: transform 0.35s ease;
+    z-index: 901;
+    display: flex;
+    flex-direction: column;
+  }
+  body.cart-open .cart-drawer { transform: translateX(0); }
+
+  .cart-drawer__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 40px 0;
+  }
+  .cart-drawer__title {
+    font-family: Georgia, "Times New Roman", serif;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 24px;
+  }
+  .cart-drawer__close { font-size: 20px; line-height: 1; padding: 4px; }
+  .cart-drawer__count {
+    padding: 10px 40px 20px;
+    margin-top: 6px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    font-size: 10.5px;
+  }
+  .cart-drawer__items { flex: 1; overflow-y: auto; padding: 0 40px; }
+  .cart-empty { padding: 60px 0; text-align: center; color: var(--ink-soft); font-size: 12px; }
+
+  .cart-item { display: flex; gap: 20px; padding: 26px 0; border-bottom: 1px solid var(--line); }
+  .cart-item__image {
+    width: 110px; height: 110px; flex: none;
+    background: var(--placeholder);
+    border: 1px solid var(--placeholder-line);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cart-item__image-mark { width: 30%; aspect-ratio: 1; border: 1px solid var(--placeholder-line); }
+  .cart-item__body { flex: 1; display: flex; flex-direction: column; }
+  .cart-item__brand { letter-spacing: 0.1em; font-size: 10px; font-weight: 600; margin-bottom: 6px; }
+  .cart-item__name { font-family: Georgia, "Times New Roman", serif; font-size: 17px; margin-bottom: 4px; }
+  .cart-item__spec { color: var(--ink-soft); font-size: 11px; margin-bottom: 16px; }
+  .cart-item__row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .cart-item__price { font-size: 13px; }
+  .cart-item__remove {
+    align-self: flex-start;
+    font-size: 10.5px;
+    letter-spacing: 0.05em;
+    text-decoration: underline;
+    color: var(--ink-soft);
+  }
+
+  .cart-qty { display: flex; align-items: center; border: 1px solid var(--line); }
+  .cart-qty__btn { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+  .cart-qty__value { width: 30px; text-align: center; font-size: 12px; }
+
+  .cart-drawer__footer { padding: 22px 40px 32px; border-top: 1px solid var(--line); }
+  .cart-drawer__footer .btn { width: 100%; flex: none; }
+  .cart-subtotal-row {
+    display: flex; justify-content: space-between;
+    letter-spacing: 0.08em; font-size: 12px; font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .cart-delivery {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 11px; color: var(--ink-soft); margin-bottom: 10px;
+  }
+  .cart-progress { height: 2px; background: var(--line); margin-bottom: 22px; }
+  .cart-progress__fill { height: 100%; width: 0%; background: var(--ink); transition: width 0.3s ease; }
+  .btn--outline-full {
+    display: block;
+    width: 100%;
+    text-align: center;
+    border: 1px solid var(--ink);
+    padding: 15px;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    margin-top: 12px;
+    transition: opacity 0.2s ease;
+  }
+  .btn--outline-full:hover { opacity: 0.7; }
+  .cart-secure {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    margin-top: 16px;
+    color: var(--ink-soft);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar__left u-label"><span>HONG KONG</span></div>
+    <div class="topbar__center u-label">COMPLIMENTARY DELIVERY IN HONG KONG ON ORDERS OVER HK$2,000</div>
+    <div class="topbar__right u-label">
+      <span>EN</span>
+      <span>ACCOUNT</span>
+      <button class="bag-toggle u-label" data-bag-toggle type="button">BAG (<span data-bag-count>0</span>)</button>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav__links nav__links--left u-label">
+      <span>SEARCH</span>
+      <a class="nav__link" href="shop.html">SHOP</a>
+      <a class="nav__link" href="brands.html">BRANDS</a>
+    </div>
+    <a class="nav__logo" href="index.html">
+      <div class="nav__logo-main">MEET CUBA</div>
+      <div class="nav__logo-sub">HONG KONG</div>
+    </a>
+    <div class="nav__links nav__links--right u-label">
+      <span>SPECIAL EDITIONS</span>
+      <a class="nav__link" href="store.html">OUR STORE</a>
+    </div>
+  </nav>
+
+  <section class="policy-header">
+    <h1 class="policy-header__title">Terms &amp; Conditions</h1>
+    <div class="policy-header__updated">Last updated: 25 August 2026</div>
+    <div class="policy-header__intro">
+      <p>These Terms &amp; Conditions govern your access to and use of the Meet Cuba website and any purchases made through us.</p>
+      <p>Please read these Terms carefully before using our website or placing an order.</p>
+      <p>By accessing our website, creating an account or placing an order, you agree to be bound by these Terms &amp; Conditions together with our Privacy Policy, Delivery &amp; Returns Policy and any other terms displayed at the time of purchase.</p>
+      <p>If you do not agree to these Terms, you should not use our website or place an order.</p>
+    </div>
+  </section>
+
+  <section class="policy-layout">
+    <nav class="policy-toc" id="policyToc">
+      <div class="policy-toc__label">ON THIS PAGE</div>
+      <ol class="policy-toc__list">
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-1">1.&nbsp; About Meet Cuba</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-2">2.&nbsp; Age Restriction</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-3">3.&nbsp; Use of Our Website</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-4">4.&nbsp; Products</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-5">5.&nbsp; Product Information</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-6">6.&nbsp; Availability</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-7">7.&nbsp; Prices</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-8">8.&nbsp; Pricing and Website Errors</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-9">9.&nbsp; Placing an Order</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-10">10.&nbsp; Order Acceptance</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-11">11.&nbsp; Payment</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-12">12.&nbsp; Fraud Prevention and Verification</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-13">13.&nbsp; Delivery</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-14">14.&nbsp; Receiving Tobacco Products</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-15">15.&nbsp; Store Collection</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-16">16.&nbsp; Delivery Risk and Inspection</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-17">17.&nbsp; Cancellations</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-18">18.&nbsp; Returns</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-19">19.&nbsp; Damaged, Incorrect or Defective Products</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-20">20.&nbsp; Refunds</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-21">21.&nbsp; Pre-Orders</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-22">22.&nbsp; Limited and Allocated Products</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-23">23.&nbsp; Authenticity</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-24">24.&nbsp; Storage After Delivery</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-25">25.&nbsp; Promotions and Discount Codes</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-26">26.&nbsp; Intellectual Property</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-27">27.&nbsp; Third-Party Services and Links</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-28">28.&nbsp; Website Availability</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-29">29.&nbsp; Our Liability</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-30">30.&nbsp; Events Outside Our Control</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-31">31.&nbsp; Privacy</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-32">32.&nbsp; Changes to These Terms</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-33">33.&nbsp; Severability</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-34">34.&nbsp; No Waiver</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-35">35.&nbsp; Entire Agreement</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-36">36.&nbsp; Governing Law and Jurisdiction</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-37">37.&nbsp; Contact Us</a></li>
+      </ol>
+    </nav>
+
+    <div class="policy-content">
+
+      <div class="policy-section" id="section-1">
+        <h2 class="policy-section__title">1.&nbsp;&nbsp;About Meet Cuba</h2>
+        <p>For the purposes of these Terms, "Meet Cuba", "we", "us" and "our" refer to:</p>
+        <ul>
+          <li>Trading name: Meet Cuba</li>
+          <li>Registered address: Shop 12, G/F, Entertainment Building, 30 Queen's Road Central, Central, Hong Kong</li>
+          <li>Store address: Shop 12, G/F, Entertainment Building, 30 Queen's Road Central, Central, Hong Kong</li>
+          <li>Website: www.meetcuba.com.hk</li>
+          <li>Email: hello@meetcuba.com.hk</li>
+          <li>Telephone: +852 2543 4288</li>
+        </ul>
+        <p>We operate from Hong Kong and these Terms are governed by the laws of the Hong Kong Special Administrative Region.</p>
+      </div>
+
+      <div class="policy-section" id="section-2">
+        <h2 class="policy-section__title">2.&nbsp;&nbsp;Age Restriction</h2>
+        <p>Tobacco products must not be sold to persons under the age of 18 in Hong Kong.</p>
+        <p>By purchasing a tobacco product from Meet Cuba, you confirm that:</p>
+        <ul>
+          <li>you are at least 18 years old;</li>
+          <li>you are legally permitted to purchase the products ordered;</li>
+          <li>all information you provide to us is accurate and truthful; and</li>
+          <li>where another person receives an order on your behalf, that person is also legally permitted to receive the products.</li>
+        </ul>
+        <p>We reserve the right to request satisfactory proof of age or identity before accepting, dispatching, releasing or completing an order.</p>
+        <p>We may refuse, cancel or withhold an order where we are unable to verify age satisfactorily.</p>
+        <p>No tobacco product will knowingly be sold or supplied by us to a person under 18.</p>
+      </div>
+
+      <div class="policy-section" id="section-3">
+        <h2 class="policy-section__title">3.&nbsp;&nbsp;Use of Our Website</h2>
+        <p>You may use our website only for lawful purposes.</p>
+        <p>You must not:</p>
+        <ul>
+          <li>use the website fraudulently or unlawfully;</li>
+          <li>provide false or misleading information;</li>
+          <li>attempt to gain unauthorised access to our website or systems;</li>
+          <li>interfere with the security or operation of the website;</li>
+          <li>use automated systems to extract content or inventory information without our permission;</li>
+          <li>impersonate another person;</li>
+          <li>place orders on behalf of a person who is not legally permitted to purchase the products; or</li>
+          <li>use our website in any manner that breaches applicable law.</li>
+        </ul>
+        <p>We may suspend or restrict access to the website where we reasonably believe it is being misused.</p>
+      </div>
+
+      <div class="policy-section" id="section-4">
+        <h2 class="policy-section__title">4.&nbsp;&nbsp;Products</h2>
+        <p>We take reasonable care to ensure that information displayed on our website is accurate.</p>
+        <p>However, tobacco products and their packaging may vary between batches, production dates and releases.</p>
+        <p>Natural tobacco is an agricultural product. Minor differences in:</p>
+        <ul>
+          <li>colour;</li>
+          <li>wrapper appearance;</li>
+          <li>texture;</li>
+          <li>dimensions;</li>
+          <li>packaging;</li>
+          <li>bands;</li>
+          <li>presentation; and</li>
+          <li>other natural characteristics</li>
+        </ul>
+        <p>may occur.</p>
+        <p>Such reasonable variations do not necessarily mean that a product is defective or different from the product ordered.</p>
+        <p>Product photographs are intended to identify and represent the relevant item but may not depict the exact individual box or cigar you receive.</p>
+      </div>
+
+      <div class="policy-section" id="section-5">
+        <h2 class="policy-section__title">5.&nbsp;&nbsp;Product Information</h2>
+        <p>Where available and legally permitted, product pages may contain factual information including:</p>
+        <ul>
+          <li>brand;</li>
+          <li>product name;</li>
+          <li>country of origin;</li>
+          <li>format or vitola;</li>
+          <li>length;</li>
+          <li>ring gauge;</li>
+          <li>pack quantity;</li>
+          <li>edition or release;</li>
+          <li>packaging format; and</li>
+          <li>availability.</li>
+        </ul>
+        <p>We endeavour to keep this information accurate but do not guarantee that every description, specification or image will always be completely free from error.</p>
+        <p>If you believe that a product you have received materially differs from what you ordered, please contact us promptly.</p>
+      </div>
+
+      <div class="policy-section" id="section-6">
+        <h2 class="policy-section__title">6.&nbsp;&nbsp;Availability</h2>
+        <p>All products are subject to availability.</p>
+        <p>Adding an item to your shopping bag does not reserve it.</p>
+        <p>Certain products may:</p>
+        <ul>
+          <li>be available only in limited quantities;</li>
+          <li>be subject to allocation;</li>
+          <li>sell out before your order is accepted;</li>
+          <li>have purchase limits;</li>
+          <li>be available only by pre-order;</li>
+          <li>be available only for store collection; or</li>
+          <li>otherwise be subject to special conditions.</li>
+        </ul>
+        <p>We reserve the right to limit the quantity of any product that may be purchased by one customer, household, account, payment method or delivery address.</p>
+        <p>If a product becomes unavailable after you place an order, we will contact you and, where applicable, refund any amount paid for that unavailable product.</p>
+      </div>
+
+      <div class="policy-section" id="section-7">
+        <h2 class="policy-section__title">7.&nbsp;&nbsp;Prices</h2>
+        <p>Unless otherwise stated, prices displayed on our Hong Kong website are shown in Hong Kong dollars (HKD).</p>
+        <p>The price applicable to an order is the price displayed at the time the order is submitted, subject to correction of obvious errors.</p>
+        <p>Delivery charges and any other applicable charges will be displayed before you confirm your order where applicable.</p>
+        <p>We may change our prices at any time without prior notice. Changes will not normally affect orders that we have already accepted.</p>
+      </div>
+
+      <div class="policy-section" id="section-8">
+        <h2 class="policy-section__title">8.&nbsp;&nbsp;Pricing and Website Errors</h2>
+        <p>We take reasonable care to ensure that prices and other product information are correct.</p>
+        <p>Occasionally, an obvious pricing, stock, technical or typographical error may occur.</p>
+        <p>If we identify an obvious error affecting your order, we may contact you before accepting or fulfilling the order.</p>
+        <p>Where appropriate, you may be given the opportunity to proceed on the corrected terms or cancel the affected item.</p>
+        <p>We are not obliged to supply a product at an obviously incorrect price where the error should reasonably have been apparent.</p>
+      </div>
+
+      <div class="policy-section" id="section-9">
+        <h2 class="policy-section__title">9.&nbsp;&nbsp;Placing an Order</h2>
+        <p>To place an order, you must provide the information requested during checkout.</p>
+        <p>Before submitting your order, you will have an opportunity to review the products selected, quantities, delivery information and total amount payable.</p>
+        <p>You are responsible for checking that all information is correct before submitting the order.</p>
+        <p>Submitting an order constitutes an offer by you to purchase the products shown in the order.</p>
+        <p>An automated order acknowledgement does not necessarily mean that we have accepted your order.</p>
+      </div>
+
+      <div class="policy-section" id="section-10">
+        <h2 class="policy-section__title">10.&nbsp;&nbsp;Order Acceptance</h2>
+        <p>A contract for the sale of products is formed only when we confirm that your order has been accepted or otherwise take an action clearly indicating acceptance, such as dispatching or releasing the goods for collection.</p>
+        <p>We reserve the right to decline or cancel an order before acceptance where reasonably necessary, including where:</p>
+        <ul>
+          <li>a product is unavailable;</li>
+          <li>there is an obvious pricing or product-information error;</li>
+          <li>payment cannot be authorised;</li>
+          <li>age or identity cannot be satisfactorily verified;</li>
+          <li>we suspect fraud or unauthorised activity;</li>
+          <li>delivery cannot reasonably be completed;</li>
+          <li>a purchase restriction has been exceeded; or</li>
+          <li>accepting the order would breach applicable law.</li>
+        </ul>
+        <p>If we cancel an order after payment has been taken, the relevant amount will be refunded using the original payment method where reasonably possible.</p>
+      </div>
+
+      <div class="policy-section" id="section-11">
+        <h2 class="policy-section__title">11.&nbsp;&nbsp;Payment</h2>
+        <p>We accept the payment methods displayed during checkout.</p>
+        <p>Payment services may be provided by third-party payment processors.</p>
+        <p>By submitting payment information, you confirm that:</p>
+        <ul>
+          <li>you are authorised to use the selected payment method;</li>
+          <li>the payment information supplied is accurate; and</li>
+          <li>you authorise the applicable payment provider to process the transaction.</li>
+        </ul>
+        <p>Your order may be delayed or cancelled if payment cannot be authorised or if additional verification is required.</p>
+        <p>Meet Cuba does not intentionally store complete payment-card information where payment details are processed directly by an authorised third-party payment provider.</p>
+      </div>
+
+      <div class="policy-section" id="section-12">
+        <h2 class="policy-section__title">12.&nbsp;&nbsp;Fraud Prevention and Verification</h2>
+        <p>To protect our customers and business, orders may be subject to security checks.</p>
+        <p>We may request additional information where reasonably necessary to:</p>
+        <ul>
+          <li>verify identity;</li>
+          <li>verify age;</li>
+          <li>verify payment;</li>
+          <li>confirm an address;</li>
+          <li>prevent fraud; or</li>
+          <li>comply with legal or regulatory obligations.</li>
+        </ul>
+        <p>Failure to provide reasonably requested verification may result in an order being delayed, declined or cancelled.</p>
+      </div>
+
+      <div class="policy-section" id="section-13">
+        <h2 class="policy-section__title">13.&nbsp;&nbsp;Delivery</h2>
+        <p>We currently deliver to locations specified on our Delivery &amp; Returns page or during checkout.</p>
+        <p>Available delivery methods, charges and estimated delivery periods will be shown during checkout where applicable.</p>
+        <p>Delivery times are estimates unless expressly stated otherwise.</p>
+        <p>We are not responsible for delays caused by circumstances outside our reasonable control, although we will take reasonable steps to assist where a delivery issue occurs.</p>
+        <p>You are responsible for providing a complete and accurate delivery address.</p>
+        <p>Additional costs resulting from an incorrect or incomplete address may be charged where reasonable.</p>
+      </div>
+
+      <div class="policy-section" id="section-14">
+        <h2 class="policy-section__title">14.&nbsp;&nbsp;Receiving Tobacco Products</h2>
+        <p>Age or identity verification may be required when an order is delivered or collected.</p>
+        <p>Where required, the recipient must provide satisfactory evidence that they are legally permitted to receive the products.</p>
+        <p>We may instruct a delivery provider not to leave tobacco products unattended or with a person who cannot satisfy applicable age requirements.</p>
+        <p>An order may be returned to us where delivery cannot lawfully or safely be completed.</p>
+        <p>Additional delivery costs may apply to a subsequent delivery attempt where the failed delivery resulted from incorrect customer information or failure to satisfy reasonable delivery requirements.</p>
+      </div>
+
+      <div class="policy-section" id="section-15">
+        <h2 class="policy-section__title">15.&nbsp;&nbsp;Store Collection</h2>
+        <p>Where store collection is offered, the person collecting an order may be required to provide:</p>
+        <ul>
+          <li>the order confirmation;</li>
+          <li>appropriate identification;</li>
+          <li>proof of age; and</li>
+          <li>where applicable, the payment card or other evidence relating to the purchase.</li>
+        </ul>
+        <p>We reserve the right not to release tobacco products where satisfactory age or identity verification cannot be completed.</p>
+      </div>
+
+      <div class="policy-section" id="section-16">
+        <h2 class="policy-section__title">16.&nbsp;&nbsp;Delivery Risk and Inspection</h2>
+        <p>Please inspect your order promptly after receiving it.</p>
+        <p>If a parcel appears materially damaged, or if products are missing, incorrect or damaged, please contact us as soon as reasonably possible at:</p>
+        <p><strong>hello@meetcuba.com.hk</strong></p>
+        <p>Where possible, please retain:</p>
+        <ul>
+          <li>the product;</li>
+          <li>original packaging;</li>
+          <li>shipping packaging;</li>
+          <li>labels; and</li>
+          <li>photographs showing the issue.</li>
+        </ul>
+        <p>This helps us investigate and resolve the matter.</p>
+      </div>
+
+      <div class="policy-section" id="section-17">
+        <h2 class="policy-section__title">17.&nbsp;&nbsp;Cancellations</h2>
+        <p>If you wish to cancel an order, please contact us as soon as possible.</p>
+        <p>An order may be cancelled before dispatch where operationally possible.</p>
+        <p>Once an order has been dispatched, cancellation may no longer be possible and the applicable return arrangements will apply.</p>
+        <p>Cancellation rights may differ for:</p>
+        <ul>
+          <li>pre-orders;</li>
+          <li>specially sourced products;</li>
+          <li>personalised items;</li>
+          <li>limited allocations; and</li>
+          <li>other products subject to specific conditions.</li>
+        </ul>
+        <p>Any special cancellation conditions will be disclosed before purchase where applicable.</p>
+      </div>
+
+      <div class="policy-section" id="section-18">
+        <h2 class="policy-section__title">18.&nbsp;&nbsp;Returns</h2>
+        <p>Our detailed return arrangements are set out in our Delivery &amp; Returns Policy.</p>
+        <p>Subject to applicable law, tobacco products generally cannot be returned merely because the customer has changed their mind once the relevant product, protective packaging or retail packaging has been opened, damaged or otherwise compromised.</p>
+        <p>For unopened products, our standard return period is:</p>
+        <p>14 days from the date of delivery or collection, subject to the conditions below.</p>
+        <p>Products returned to us must, where applicable:</p>
+        <ul>
+          <li>be unused;</li>
+          <li>remain unopened;</li>
+          <li>remain in their original condition;</li>
+          <li>include their original packaging; and</li>
+          <li>be accompanied by satisfactory proof of purchase.</li>
+        </ul>
+        <p>Nothing in these Terms limits any rights or remedies that cannot lawfully be excluded.</p>
+      </div>
+
+      <div class="policy-section" id="section-19">
+        <h2 class="policy-section__title">19.&nbsp;&nbsp;Damaged, Incorrect or Defective Products</h2>
+        <p>If you receive a product that is materially damaged, incorrect or otherwise not in accordance with your order, please contact us promptly.</p>
+        <p>We may request reasonable evidence, including photographs, before determining the appropriate resolution.</p>
+        <p>Depending on the circumstances and applicable law, we may:</p>
+        <ul>
+          <li>replace the product;</li>
+          <li>provide the correct product;</li>
+          <li>arrange a return;</li>
+          <li>provide a refund; or</li>
+          <li>offer another appropriate remedy.</li>
+        </ul>
+        <p>Please do not dispose of an affected product until we have advised you that doing so is appropriate.</p>
+      </div>
+
+      <div class="policy-section" id="section-20">
+        <h2 class="policy-section__title">20.&nbsp;&nbsp;Refunds</h2>
+        <p>Approved refunds will normally be issued to the original payment method.</p>
+        <p>The time required for a refund to appear in your account may depend on your bank, card issuer or payment provider.</p>
+        <p>Original delivery charges and return costs will be handled in accordance with our Delivery &amp; Returns Policy and applicable law.</p>
+        <p>We will not knowingly withhold a refund or other remedy to which you are legally entitled.</p>
+      </div>
+
+      <div class="policy-section" id="section-21">
+        <h2 class="policy-section__title">21.&nbsp;&nbsp;Pre-Orders</h2>
+        <p>Certain products may be offered on a pre-order basis.</p>
+        <p>A pre-order relates to a product that is not yet available for immediate fulfilment.</p>
+        <p>Any estimated availability or delivery date is an estimate only unless expressly stated otherwise.</p>
+        <p>The product may be delayed because of circumstances including:</p>
+        <ul>
+          <li>supplier availability;</li>
+          <li>allocation;</li>
+          <li>transport;</li>
+          <li>importation;</li>
+          <li>customs;</li>
+          <li>regulatory requirements; or</li>
+          <li>other matters outside our reasonable control.</li>
+        </ul>
+        <p>Where a significant delay occurs, we will provide information reasonably available to us and explain any options available under the applicable pre-order conditions.</p>
+      </div>
+
+      <div class="policy-section" id="section-22">
+        <h2 class="policy-section__title">22.&nbsp;&nbsp;Limited and Allocated Products</h2>
+        <p>Rare, limited-edition, discontinued, vintage or highly allocated products may be subject to additional restrictions.</p>
+        <p>We may limit purchases in order to manage genuinely limited inventory fairly.</p>
+        <p>An order for a limited product is not guaranteed until accepted by us.</p>
+        <p>Where multiple orders are received for stock that is no longer available, we may cancel affected orders and issue applicable refunds.</p>
+      </div>
+
+      <div class="policy-section" id="section-23">
+        <h2 class="policy-section__title">23.&nbsp;&nbsp;Authenticity</h2>
+        <p>We take the sourcing and authenticity of products offered by Meet Cuba seriously.</p>
+        <p>Where we make a specific authenticity representation in relation to a product, that representation applies subject to the particular product, source and information available to us.</p>
+        <p>Packaging, stamps, bands and presentation may vary according to production period, market and manufacturer.</p>
+        <p>If you have a concern regarding a product purchased from us, please contact us directly so that we can investigate.</p>
+      </div>
+
+      <div class="policy-section" id="section-24">
+        <h2 class="policy-section__title">24.&nbsp;&nbsp;Storage After Delivery</h2>
+        <p>Tobacco products are sensitive to environmental conditions.</p>
+        <p>Once an order has been delivered or collected, appropriate storage becomes the customer's responsibility.</p>
+        <p>Where we provide general storage guidance, that information is provided for general informational purposes only and does not constitute a guarantee that a particular storage method or environment will produce a specific result.</p>
+        <p>We are not responsible for deterioration caused after delivery by inappropriate storage, excessive heat, excessive dryness, excessive humidity, physical damage or other conditions outside our control.</p>
+      </div>
+
+      <div class="policy-section" id="section-25">
+        <h2 class="policy-section__title">25.&nbsp;&nbsp;Promotions and Discount Codes</h2>
+        <p>Where legally permitted, any discount, offer or promotional code is subject to the specific conditions stated with it.</p>
+        <p>Unless otherwise specified:</p>
+        <ul>
+          <li>promotions cannot be exchanged for cash;</li>
+          <li>promotional codes cannot be combined;</li>
+          <li>promotions may be withdrawn before an order is accepted; and</li>
+          <li>exclusions may apply.</li>
+        </ul>
+        <p>Nothing on our website should be interpreted as offering a tobacco-related promotion where doing so would be prohibited by applicable law.</p>
+      </div>
+
+      <div class="policy-section" id="section-26">
+        <h2 class="policy-section__title">26.&nbsp;&nbsp;Intellectual Property</h2>
+        <p>All content on the Meet Cuba website, including where applicable:</p>
+        <ul>
+          <li>the Meet Cuba name and branding;</li>
+          <li>website design;</li>
+          <li>text;</li>
+          <li>photographs;</li>
+          <li>graphics;</li>
+          <li>logos;</li>
+          <li>layouts;</li>
+          <li>icons; and</li>
+          <li>other original content</li>
+        </ul>
+        <p>is owned by us or used with permission and is protected by applicable intellectual-property laws.</p>
+        <p>You may use the website for your own personal, non-commercial purposes.</p>
+        <p>You must not reproduce, republish, commercially exploit or distribute our content without permission, except where permitted by law.</p>
+        <p>Third-party product names, trademarks and logos remain the property of their respective owners.</p>
+      </div>
+
+      <div class="policy-section" id="section-27">
+        <h2 class="policy-section__title">27.&nbsp;&nbsp;Third-Party Services and Links</h2>
+        <p>Our website may contain links to third-party websites or use services provided by third parties, including payment, delivery, mapping and other technology providers.</p>
+        <p>We do not control independent third-party websites and their own terms and privacy policies may apply.</p>
+        <p>A link to a third-party service does not necessarily constitute our endorsement of all content or services available through it.</p>
+      </div>
+
+      <div class="policy-section" id="section-28">
+        <h2 class="policy-section__title">28.&nbsp;&nbsp;Website Availability</h2>
+        <p>We aim to keep our website available and functioning properly but cannot guarantee uninterrupted access.</p>
+        <p>The website may occasionally be unavailable because of:</p>
+        <ul>
+          <li>maintenance;</li>
+          <li>technical problems;</li>
+          <li>security incidents;</li>
+          <li>service-provider failures;</li>
+          <li>updates; or</li>
+          <li>circumstances outside our reasonable control.</li>
+        </ul>
+        <p>We may modify, suspend or discontinue website functionality where reasonably necessary.</p>
+      </div>
+
+      <div class="policy-section" id="section-29">
+        <h2 class="policy-section__title">29.&nbsp;&nbsp;Our Liability</h2>
+        <p>Nothing in these Terms excludes or limits liability to the extent that such liability cannot lawfully be excluded or limited.</p>
+        <p>Subject to applicable law, we will not be responsible for losses that:</p>
+        <ul>
+          <li>were not reasonably foreseeable when the contract was formed;</li>
+          <li>arise from misuse of a product;</li>
+          <li>result from inaccurate information provided by you;</li>
+          <li>result from inappropriate storage after delivery;</li>
+          <li>arise from events outside our reasonable control; or</li>
+          <li>relate to business or commercial losses where you purchased as a consumer for personal use.</li>
+        </ul>
+        <p>Any limitation in these Terms applies only to the extent permitted by applicable law.</p>
+      </div>
+
+      <div class="policy-section" id="section-30">
+        <h2 class="policy-section__title">30.&nbsp;&nbsp;Events Outside Our Control</h2>
+        <p>We will not be responsible for delay or failure to perform an obligation where caused by circumstances outside our reasonable control.</p>
+        <p>These may include:</p>
+        <ul>
+          <li>severe weather;</li>
+          <li>transport disruption;</li>
+          <li>supplier disruption;</li>
+          <li>customs delays;</li>
+          <li>import or export restrictions;</li>
+          <li>government action;</li>
+          <li>regulatory changes;</li>
+          <li>strikes;</li>
+          <li>civil disturbance;</li>
+          <li>epidemic or public-health measures;</li>
+          <li>failure of utilities or communications networks; or</li>
+          <li>other comparable events.</li>
+        </ul>
+        <p>We will take reasonable steps to minimise disruption where practicable.</p>
+      </div>
+
+      <div class="policy-section" id="section-31">
+        <h2 class="policy-section__title">31.&nbsp;&nbsp;Privacy</h2>
+        <p>Our collection and handling of personal data is governed by our Privacy Policy.</p>
+        <p>Please review the Privacy Policy before providing personal information to us.</p>
+      </div>
+
+      <div class="policy-section" id="section-32">
+        <h2 class="policy-section__title">32.&nbsp;&nbsp;Changes to These Terms</h2>
+        <p>We may update these Terms from time to time.</p>
+        <p>The latest version will be published on this page together with the date of the most recent update.</p>
+        <p>The Terms applying to an order will generally be those in effect when the order was placed, subject to applicable law.</p>
+      </div>
+
+      <div class="policy-section" id="section-33">
+        <h2 class="policy-section__title">33.&nbsp;&nbsp;Severability</h2>
+        <p>If any provision of these Terms is found by a court or other competent authority to be unlawful, invalid or unenforceable, that provision will be treated as modified or removed to the minimum extent necessary.</p>
+        <p>The remaining provisions will continue to apply.</p>
+      </div>
+
+      <div class="policy-section" id="section-34">
+        <h2 class="policy-section__title">34.&nbsp;&nbsp;No Waiver</h2>
+        <p>If we do not immediately enforce a right under these Terms, this does not mean that we have waived that right.</p>
+        <p>Any waiver will apply only where expressly given.</p>
+      </div>
+
+      <div class="policy-section" id="section-35">
+        <h2 class="policy-section__title">35.&nbsp;&nbsp;Entire Agreement</h2>
+        <p>These Terms, together with any policies or specific conditions expressly incorporated into them, constitute the agreement between you and Meet Cuba concerning the relevant purchase.</p>
+        <p>Nothing in this section excludes any representation or liability that cannot lawfully be excluded.</p>
+      </div>
+
+      <div class="policy-section" id="section-36">
+        <h2 class="policy-section__title">36.&nbsp;&nbsp;Governing Law and Jurisdiction</h2>
+        <p>These Terms and any dispute or claim arising from them are governed by the laws of the Hong Kong Special Administrative Region.</p>
+        <p>The courts of Hong Kong will have jurisdiction, subject to any rights available to consumers under applicable law.</p>
+      </div>
+
+      <div class="policy-section" id="section-37">
+        <h2 class="policy-section__title">37.&nbsp;&nbsp;Contact Us</h2>
+        <p>If you have a question about these Terms, an order or a product purchased from us, please contact:</p>
+        <p><strong>Meet Cuba</strong><br>Shop 12, G/F, Entertainment Building<br>30 Queen's Road Central, Central<br>Hong Kong</p>
+        <p>Email: <strong>hello@meetcuba.com.hk</strong><br>Telephone: +852 2543 4288</p>
+        <p>For privacy-related enquiries, please refer to our Privacy Policy.</p>
+        <div class="policy-contact">
+          <div class="policy-contact__icon"></div>
+          <span>hello@meetcuba.com.hk</span>
+        </div>
+        <p style="margin-top: 20px; letter-spacing: 0.02em; font-weight: 600; color: var(--ink);">BY ORDER OF HKSAR GOVERNMENT: NO TOBACCO PRODUCT SHALL BE SOLD TO PERSON UNDER 18 OR GIVEN FOR PROMOTION TO ANY PERSON.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="trust-strip">
+    <div class="trust-strip__item">
+      <div class="trust-strip__icon"></div>
+      <div>
+        <div class="trust-strip__title">Complimentary Delivery</div>
+        <div class="trust-strip__sub">On orders over HK$2,000</div>
+      </div>
+    </div>
+    <div class="trust-strip__item">
+      <div class="trust-strip__icon"></div>
+      <div>
+        <div class="trust-strip__title">Secure Payment</div>
+        <div class="trust-strip__sub">Encrypted checkout</div>
+      </div>
+    </div>
+    <div class="trust-strip__item">
+      <div class="trust-strip__icon"></div>
+      <div>
+        <div class="trust-strip__title">Authenticity Guaranteed</div>
+        <div class="trust-strip__sub">All cigars 100% authentic</div>
+      </div>
+    </div>
+    <div class="trust-strip__item">
+      <div class="trust-strip__icon"></div>
+      <div>
+        <div class="trust-strip__title">Expert Support</div>
+        <div class="trust-strip__sub">We're here to help</div>
+      </div>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">Your Bag</h2>
+      <button class="cart-drawer__close" id="cartClose" type="button" aria-label="Close bag">×</button>
+    </div>
+    <div class="cart-drawer__count" id="cartItemsLabel">0 ITEMS</div>
+    <div class="cart-drawer__items" id="cartItems"></div>
+    <div class="cart-drawer__footer">
+      <div class="cart-subtotal-row">
+        <span>SUBTOTAL</span>
+        <span id="cartSubtotal">HK$0</span>
+      </div>
+      <div class="cart-delivery">
+        <span id="cartDeliveryText">Add HK$2,000 more for free delivery</span>
+        <span id="cartDeliveryCheck" style="display:none;">✓</span>
+      </div>
+      <div class="cart-progress"><div class="cart-progress__fill" id="cartProgressFill"></div></div>
+      <a class="btn btn--primary" href="#">CHECKOUT</a>
+      <a class="btn--outline-full" href="#">VIEW BAG</a>
+      <div class="cart-secure">🔒 Secure checkout</div>
+    </div>
+  </aside>
+  <script src="cart.js"></script>
+  <script src="footer.js"></script>
+  <script src="policy.js"></script>
+</body>
+</html>

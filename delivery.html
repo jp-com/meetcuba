@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delivery &amp; Returns — Meet Cuba, Hong Kong</title>
+<link rel="stylesheet" href="footer.css">
+<link rel="stylesheet" href="policy.css">
+<style>
+  :root {
+    --ink: #17140f;
+    --ink-soft: #4a453d;
+    --ground: #f8f6f2;
+    --ground-alt: #efece5;
+    --line: #e2ddd2;
+    --placeholder: #eae5da;
+    --placeholder-line: #d8d1c1;
+    --gold: #8a7440;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { overscroll-behavior: none; scroll-behavior: smooth; }
+
+  body {
+    overscroll-behavior: none;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+  .u-label {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 10px;
+  }
+
+  /* Topbar (shared) */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 40px;
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar__left, .topbar__right { display: flex; align-items: center; gap: 28px; }
+  .topbar__center { color: var(--ink-soft); }
+
+  /* Nav (shared) */
+  .nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 22px 40px;
+    border-bottom: 1px solid var(--line);
+  }
+  .nav__links { display: flex; align-items: center; gap: 32px; }
+  .nav__links--left { justify-content: flex-start; }
+  .nav__links--right { justify-content: flex-end; }
+  .nav__link { position: relative; }
+  .nav__logo { display: block; text-align: center; }
+  .nav__logo-main {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 26px;
+    letter-spacing: 0.08em;
+  }
+  .nav__logo-sub {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+
+  section { padding: 0 40px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    padding: 16px 24px;
+    transition: opacity 0.2s ease;
+  }
+  .btn:hover { opacity: 0.8; }
+  .btn--primary { background: var(--ink); color: var(--ground); }
+
+  /* Trust strip */
+  .trust-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 40px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .trust-strip__item { display: flex; align-items: center; gap: 14px; }
+  .trust-strip__icon { width: 24px; height: 24px; flex: none; border: 1px solid var(--placeholder-line); }
+  .trust-strip__title { font-size: 11.5px; letter-spacing: 0.04em; margin-bottom: 2px; }
+  .trust-strip__sub { color: var(--ink-soft); font-size: 10.5px; }
+
+  /* Bag toggle */
+  .bag-toggle { cursor: pointer; }
+
+  /* Cart drawer */
+  body.cart-open { overflow: hidden; }
+
+  .cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(23, 20, 15, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 900;
+  }
+  body.cart-open .cart-overlay { opacity: 1; pointer-events: auto; }
+
+  .cart-drawer {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100vh;
+    width: 460px;
+    max-width: 92vw;
+    background: var(--ground);
+    border-left: 1px solid var(--line);
+    transform: translateX(100%);
+    transition: transform 0.35s ease;
+    z-index: 901;
+    display: flex;
+    flex-direction: column;
+  }
+  body.cart-open .cart-drawer { transform: translateX(0); }
+
+  .cart-drawer__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 40px 0;
+  }
+  .cart-drawer__title {
+    font-family: Georgia, "Times New Roman", serif;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 24px;
+  }
+  .cart-drawer__close { font-size: 20px; line-height: 1; padding: 4px; }
+  .cart-drawer__count {
+    padding: 10px 40px 20px;
+    margin-top: 6px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    font-size: 10.5px;
+  }
+  .cart-drawer__items { flex: 1; overflow-y: auto; padding: 0 40px; }
+  .cart-empty { padding: 60px 0; text-align: center; color: var(--ink-soft); font-size: 12px; }
+
+  .cart-item { display: flex; gap: 20px; padding: 26px 0; border-bottom: 1px solid var(--line); }
+  .cart-item__image {
+    width: 110px; height: 110px; flex: none;
+    background: var(--placeholder);
+    border: 1px solid var(--placeholder-line);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cart-item__image-mark { width: 30%; aspect-ratio: 1; border: 1px solid var(--placeholder-line); }
+  .cart-item__body { flex: 1; display: flex; flex-direction: column; }
+  .cart-item__brand { letter-spacing: 0.1em; font-size: 10px; font-weight: 600; margin-bottom: 6px; }
+  .cart-item__name { font-family: Georgia, "Times New Roman", serif; font-size: 17px; margin-bottom: 4px; }
+  .cart-item__spec { color: var(--ink-soft); font-size: 11px; margin-bottom: 16px; }
+  .cart-item__row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .cart-item__price { font-size: 13px; }
+  .cart-item__remove {
+    align-self: flex-start;
+    font-size: 10.5px;
+    letter-spacing: 0.05em;
+    text-decoration: underline;
+    color: var(--ink-soft);
+  }
+
+  .cart-qty { display: flex; align-items: center; border: 1px solid var(--line); }
+  .cart-qty__btn { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+  .cart-qty__value { width: 30px; text-align: center; font-size: 12px; }
+
+  .cart-drawer__footer { padding: 22px 40px 32px; border-top: 1px solid var(--line); }
+  .cart-drawer__footer .btn { width: 100%; flex: none; }
+  .cart-subtotal-row {
+    display: flex; justify-content: space-between;
+    letter-spacing: 0.08em; font-size: 12px; font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .cart-delivery {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 11px; color: var(--ink-soft); margin-bottom: 10px;
+  }
+  .cart-progress { height: 2px; background: var(--line); margin-bottom: 22px; }
+  .cart-progress__fill { height: 100%; width: 0%; background: var(--ink); transition: width 0.3s ease; }
+  .btn--outline-full {
+    display: block;
+    width: 100%;
+    text-align: center;
+    border: 1px solid var(--ink);
+    padding: 15px;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    margin-top: 12px;
+    transition: opacity 0.2s ease;
+  }
+  .btn--outline-full:hover { opacity: 0.7; }
+  .cart-secure {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    margin-top: 16px;
+    color: var(--ink-soft);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="topbar__left u-label"><span>HONG KONG</span></div>
+    <div class="topbar__center u-label">COMPLIMENTARY DELIVERY IN HONG KONG ON ORDERS OVER HK$2,000</div>
+    <div class="topbar__right u-label">
+      <span>EN</span>
+      <span>ACCOUNT</span>
+      <button class="bag-toggle u-label" data-bag-toggle type="button">BAG (<span data-bag-count>0</span>)</button>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav__links nav__links--left u-label">
+      <span>SEARCH</span>
+      <a class="nav__link" href="shop.html">SHOP</a>
+      <a class="nav__link" href="brands.html">BRANDS</a>
+    </div>
+    <a class="nav__logo" href="index.html">
+      <div class="nav__logo-main">MEET CUBA</div>
+      <div class="nav__logo-sub">HONG KONG</div>
+    </a>
+    <div class="nav__links nav__links--right u-label">
+      <span>SPECIAL EDITIONS</span>
+      <a class="nav__link" href="store.html">OUR STORE</a>
+    </div>
+  </nav>
+
+  <section class="policy-header">
+    <h1 class="policy-header__title">Delivery &amp; Returns</h1>
+    <div class="policy-header__updated">Last updated: 25 August 2026</div>
+    <div class="policy-header__intro">
+      <p>We want every order to arrive safely, promptly and in the condition you expect.</p>
+      <p>This page explains our delivery, collection, cancellation, return and refund arrangements for purchases made through Meet Cuba.</p>
+      <p>For further information, please refer to our Terms &amp; Conditions or contact our team.</p>
+    </div>
+  </section>
+
+  <section class="policy-layout">
+    <nav class="policy-toc" id="policyToc">
+      <div class="policy-toc__label">ON THIS PAGE</div>
+      <ol class="policy-toc__list">
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-1">1.&nbsp; Hong Kong Delivery</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-2">2.&nbsp; Delivery Areas</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-3">3.&nbsp; Order Processing</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-4">4.&nbsp; Order Confirmation</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-5">5.&nbsp; Age Verification</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-6">6.&nbsp; Receiving Your Order</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-7">7.&nbsp; Failed Delivery</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-8">8.&nbsp; Incorrect Delivery Information</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-9">9.&nbsp; Store Collection</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-10">10.&nbsp; Inspecting Your Order</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-11">11.&nbsp; Returns</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-12">12.&nbsp; Tobacco Products</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-13">13.&nbsp; Natural Variation</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-14">14.&nbsp; Damaged Products</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-15">15.&nbsp; Incorrect Products</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-16">16.&nbsp; Missing Items</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-17">17.&nbsp; Cancellations</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-18">18.&nbsp; Pre-Orders</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-19">19.&nbsp; Limited and Special Editions</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-20">20.&nbsp; Refunds</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-21">21.&nbsp; Delivery Charges on Returns</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-22">22.&nbsp; Returning a Product</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-23">23.&nbsp; Storage After Delivery</a></li>
+        <li class="policy-toc__item"><a class="policy-toc__link" href="#section-24">24.&nbsp; Questions About Your Delivery</a></li>
+      </ol>
+    </nav>
+
+    <div class="policy-content">
+
+      <div class="policy-section" id="section-1">
+        <h2 class="policy-section__title">1.&nbsp;&nbsp;Hong Kong Delivery</h2>
+        <p>We currently offer delivery within Hong Kong to eligible addresses.</p>
+        <p>Delivery fee: HK$100</p>
+        <p>Complimentary delivery: Orders over HK$2,000</p>
+        <p>Estimated delivery time: 1–3 business days</p>
+        <p>Available delivery options and any applicable charges will be displayed during checkout before you place your order.</p>
+        <p>Delivery times are estimates and may occasionally be affected by circumstances outside our reasonable control.</p>
+      </div>
+
+      <div class="policy-section" id="section-2">
+        <h2 class="policy-section__title">2.&nbsp;&nbsp;Delivery Areas</h2>
+        <p>We currently deliver to:</p>
+        <ul>
+          <li>Hong Kong Island</li>
+          <li>Kowloon</li>
+          <li>New Territories</li>
+        </ul>
+        <p>Certain locations may be excluded or subject to additional arrangements.</p>
+        <p>If we are unable to deliver to your address, our team will contact you after your order is placed.</p>
+      </div>
+
+      <div class="policy-section" id="section-3">
+        <h2 class="policy-section__title">3.&nbsp;&nbsp;Order Processing</h2>
+        <p>Orders are generally processed during our normal business hours.</p>
+        <p>Orders placed after 2:00 PM may be processed on the following business day.</p>
+        <p>Orders placed on public holidays or outside business hours may require additional processing time.</p>
+        <p>Rare, limited, pre-order or specially sourced products may require longer preparation periods.</p>
+        <p>Where this applies, we will provide relevant information on the product page or contact you after your order is placed.</p>
+      </div>
+
+      <div class="policy-section" id="section-4">
+        <h2 class="policy-section__title">4.&nbsp;&nbsp;Order Confirmation</h2>
+        <p>Once your order has been submitted, you will receive an order acknowledgement using the contact details provided at checkout.</p>
+        <p>This acknowledgement confirms that we have received your order. It does not necessarily mean that the order has been accepted.</p>
+        <p>Once your order has been confirmed and prepared for delivery, we will provide an update where applicable.</p>
+      </div>
+
+      <div class="policy-section" id="section-5">
+        <h2 class="policy-section__title">5.&nbsp;&nbsp;Age Verification</h2>
+        <p>Tobacco products must not be sold or supplied to persons under the age of 18.</p>
+        <p>We may request satisfactory proof of age or identity before:</p>
+        <ul>
+          <li>accepting an order;</li>
+          <li>dispatching an order;</li>
+          <li>completing delivery; or</li>
+          <li>releasing an order for collection.</li>
+        </ul>
+        <p>The person receiving or collecting tobacco products must be legally permitted to receive them.</p>
+        <p>If satisfactory age verification cannot be completed, we may refuse delivery or collection and the order may be returned to us.</p>
+      </div>
+
+      <div class="policy-section" id="section-6">
+        <h2 class="policy-section__title">6.&nbsp;&nbsp;Receiving Your Order</h2>
+        <p>Please ensure that someone eligible to receive the order is available at the delivery address.</p>
+        <p>Depending on the delivery method, the courier may require:</p>
+        <ul>
+          <li>a signature;</li>
+          <li>identification;</li>
+          <li>proof of age; or</li>
+          <li>other reasonable verification.</li>
+        </ul>
+        <p>Tobacco products should not be left with a person under 18.</p>
+        <p>We may instruct our delivery provider not to leave tobacco products unattended.</p>
+      </div>
+
+      <div class="policy-section" id="section-7">
+        <h2 class="policy-section__title">7.&nbsp;&nbsp;Failed Delivery</h2>
+        <p>If delivery cannot be completed because:</p>
+        <ul>
+          <li>nobody eligible is available to receive the order;</li>
+          <li>age verification cannot be completed;</li>
+          <li>the address provided is incorrect or incomplete; or</li>
+          <li>access to the delivery location is unavailable,</li>
+        </ul>
+        <p>the order may be returned to us.</p>
+        <p>We will contact you to arrange the next appropriate step.</p>
+        <p>An additional delivery charge may apply where a further delivery attempt is required due to circumstances within the customer's control.</p>
+      </div>
+
+      <div class="policy-section" id="section-8">
+        <h2 class="policy-section__title">8.&nbsp;&nbsp;Incorrect Delivery Information</h2>
+        <p>Please check your delivery information carefully before completing checkout.</p>
+        <p>If you notice an error after placing your order, contact us as soon as possible at:</p>
+        <p>hello@meetcuba.com.hk<br>+852 2543 4288</p>
+        <p>We will make reasonable efforts to update the address before dispatch, but changes may not be possible once an order has entered the delivery process.</p>
+      </div>
+
+      <div class="policy-section" id="section-9">
+        <h2 class="policy-section__title">9.&nbsp;&nbsp;Store Collection</h2>
+        <p>Where available, you may choose to collect your order from our Hong Kong store.</p>
+        <p><strong>Meet Cuba</strong><br>Shop 12, G/F, Entertainment Building, 30 Queen's Road Central, Central, Hong Kong</p>
+        <p>Collection hours:</p>
+        <p>Monday – Saturday, 11:00 – 20:00<br>Sunday, 12:00 – 19:00</p>
+        <p>We will contact you when your order is ready for collection.</p>
+        <p>Please do not visit the store to collect your order until you have received confirmation that it is ready.</p>
+        <p>When collecting an order, we may ask you to provide:</p>
+        <ul>
+          <li>your order confirmation;</li>
+          <li>photographic identification;</li>
+          <li>proof of age; and</li>
+          <li>where appropriate, evidence relating to the original payment.</li>
+        </ul>
+        <p>Orders will not be released where required age or identity checks cannot be completed satisfactorily.</p>
+      </div>
+
+      <div class="policy-section" id="section-10">
+        <h2 class="policy-section__title">10.&nbsp;&nbsp;Inspecting Your Order</h2>
+        <p>Please inspect your order as soon as reasonably possible after receiving or collecting it.</p>
+        <p>If anything appears to be:</p>
+        <ul>
+          <li>damaged;</li>
+          <li>missing;</li>
+          <li>incorrect; or</li>
+          <li>materially different from what you ordered,</li>
+        </ul>
+        <p>please contact us promptly.</p>
+        <p>Where possible, please keep:</p>
+        <ul>
+          <li>the product;</li>
+          <li>its original packaging;</li>
+          <li>the delivery packaging;</li>
+          <li>shipping labels; and</li>
+          <li>photographs showing the issue.</li>
+        </ul>
+        <p>This will help us assess and resolve the matter efficiently.</p>
+      </div>
+
+      <div class="policy-section" id="section-11">
+        <h2 class="policy-section__title">11.&nbsp;&nbsp;Returns</h2>
+        <p>We want you to be satisfied that you have received the product you ordered.</p>
+        <p>Subject to applicable law and the conditions below, eligible products may be returned within:</p>
+        <p>14 days from the date of delivery or collection.</p>
+        <p>To be eligible for a discretionary return, a product must generally:</p>
+        <ul>
+          <li>be unused;</li>
+          <li>be unopened;</li>
+          <li>remain in its original condition;</li>
+          <li>retain all original packaging, seals and labels; and</li>
+          <li>be accompanied by satisfactory proof of purchase.</li>
+        </ul>
+        <p>Please contact us before returning any product.</p>
+        <p>Products sent back without prior authorisation may take longer to process.</p>
+      </div>
+
+      <div class="policy-section" id="section-12">
+        <h2 class="policy-section__title">12.&nbsp;&nbsp;Tobacco Products</h2>
+        <p>Because tobacco is a consumable product that is sensitive to handling and environmental conditions, we generally cannot accept a discretionary return once:</p>
+        <ul>
+          <li>the product has been opened;</li>
+          <li>protective packaging or seals have been removed or damaged;</li>
+          <li>the cigars have been removed from their original packaging;</li>
+          <li>the product has been smoked or used;</li>
+          <li>the product has been improperly stored; or</li>
+          <li>its condition can no longer reasonably be verified.</li>
+        </ul>
+        <p>This does not affect any rights or remedies available to you under applicable law where goods are damaged, defective, incorrect or otherwise not supplied as agreed.</p>
+      </div>
+
+      <div class="policy-section" id="section-13">
+        <h2 class="policy-section__title">13.&nbsp;&nbsp;Natural Variation</h2>
+        <p>Cigars are handmade agricultural products.</p>
+        <p>Reasonable differences may occur between individual cigars, boxes and production batches, including variations in:</p>
+        <ul>
+          <li>wrapper colour;</li>
+          <li>texture;</li>
+          <li>grain;</li>
+          <li>natural markings;</li>
+          <li>wooden packaging;</li>
+          <li>bands; and</li>
+          <li>presentation.</li>
+        </ul>
+        <p>Minor natural variations of this kind are not normally considered defects.</p>
+      </div>
+
+      <div class="policy-section" id="section-14">
+        <h2 class="policy-section__title">14.&nbsp;&nbsp;Damaged Products</h2>
+        <p>If your order arrives materially damaged, please contact us as soon as reasonably possible.</p>
+        <p>Please include:</p>
+        <ul>
+          <li>your order number;</li>
+          <li>a description of the issue; and</li>
+          <li>clear photographs of the product and packaging.</li>
+        </ul>
+        <p>Do not dispose of the product or its packaging until our team has advised you that it is appropriate to do so.</p>
+        <p>After reviewing the issue, we may arrange an appropriate remedy, which may include replacement, return or refund depending on the circumstances.</p>
+      </div>
+
+      <div class="policy-section" id="section-15">
+        <h2 class="policy-section__title">15.&nbsp;&nbsp;Incorrect Products</h2>
+        <p>If we have sent you an item different from the product shown on your order confirmation, please contact us promptly.</p>
+        <p>We may arrange for the incorrect item to be collected or returned and, where appropriate, provide:</p>
+        <ul>
+          <li>the correct product;</li>
+          <li>a replacement; or</li>
+          <li>a refund.</li>
+        </ul>
+        <p>Please keep the incorrect product unopened and in its original condition wherever reasonably possible.</p>
+      </div>
+
+      <div class="policy-section" id="section-16">
+        <h2 class="policy-section__title">16.&nbsp;&nbsp;Missing Items</h2>
+        <p>If part of your order is missing, please contact us and provide your order number.</p>
+        <p>We will review the order and delivery records and arrange an appropriate resolution where an item has not been supplied.</p>
+      </div>
+
+      <div class="policy-section" id="section-17">
+        <h2 class="policy-section__title">17.&nbsp;&nbsp;Cancellations</h2>
+        <p>If you wish to cancel an order, please contact us as soon as possible.</p>
+        <p>Orders that have not yet been dispatched may be cancelled where operationally possible.</p>
+        <p>Once an order has entered the delivery process, we may no longer be able to cancel it.</p>
+        <p>Any applicable return arrangements will then apply.</p>
+      </div>
+
+      <div class="policy-section" id="section-18">
+        <h2 class="policy-section__title">18.&nbsp;&nbsp;Pre-Orders</h2>
+        <p>Pre-order products are subject to their own availability and expected release dates.</p>
+        <p>Any expected delivery or availability date shown for a pre-order is an estimate unless expressly stated otherwise.</p>
+        <p>Delays may occur due to:</p>
+        <ul>
+          <li>supplier allocation;</li>
+          <li>production;</li>
+          <li>international transport;</li>
+          <li>customs;</li>
+          <li>importation;</li>
+          <li>regulatory requirements; or</li>
+          <li>other circumstances outside our reasonable control.</li>
+        </ul>
+        <p>If a significant delay affects your pre-order, we will contact you with the information reasonably available to us.</p>
+        <p>Specific cancellation or refund conditions may apply to certain pre-order or specially sourced products and will be disclosed where relevant.</p>
+      </div>
+
+      <div class="policy-section" id="section-19">
+        <h2 class="policy-section__title">19.&nbsp;&nbsp;Limited and Special Editions</h2>
+        <p>Rare, discontinued, allocated and limited-edition products may have additional return or cancellation restrictions.</p>
+        <p>Where special conditions apply, they will be stated before purchase or communicated to you when the order is confirmed.</p>
+        <p>This does not affect rights that cannot legally be excluded.</p>
+      </div>
+
+      <div class="policy-section" id="section-20">
+        <h2 class="policy-section__title">20.&nbsp;&nbsp;Refunds</h2>
+        <p>Once a refund has been approved, it will normally be made to the original payment method.</p>
+        <p>Please allow 5–10 business days for us to process an approved refund.</p>
+        <p>Your bank or payment provider may require additional time before the funds appear in your account.</p>
+        <p>We are not responsible for processing delays caused by your bank, card issuer or payment provider.</p>
+      </div>
+
+      <div class="policy-section" id="section-21">
+        <h2 class="policy-section__title">21.&nbsp;&nbsp;Delivery Charges on Returns</h2>
+        <p>Where a return is accepted because an item is damaged, defective or supplied incorrectly, we will deal with reasonable return-delivery costs in accordance with applicable law and the circumstances of the order.</p>
+        <p>For discretionary returns, the customer may be responsible for return-delivery costs.</p>
+        <p>Original delivery charges may not be refundable unless required by law or expressly agreed by us.</p>
+      </div>
+
+      <div class="policy-section" id="section-22">
+        <h2 class="policy-section__title">22.&nbsp;&nbsp;Returning a Product</h2>
+        <p>Please do not send products back to our store without contacting us first.</p>
+        <p>To request a return, contact:</p>
+        <p>Email: hello@meetcuba.com.hk<br>Telephone: +852 2543 4288<br>WhatsApp: +852 2543 4288</p>
+        <p>Please provide:</p>
+        <ul>
+          <li>your name;</li>
+          <li>order number;</li>
+          <li>product concerned;</li>
+          <li>reason for the return; and</li>
+          <li>photographs where relevant.</li>
+        </ul>
+        <p>Our team will then provide the appropriate return instructions.</p>
+      </div>
+
+      <div class="policy-section" id="section-23">
+        <h2 class="policy-section__title">23.&nbsp;&nbsp;Storage After Delivery</h2>
+        <p>Once tobacco products have been delivered or collected, appropriate storage becomes the customer's responsibility.</p>
+        <p>Cigars may be adversely affected by inappropriate:</p>
+        <ul>
+          <li>temperature;</li>
+          <li>humidity;</li>
+          <li>dryness;</li>
+          <li>heat;</li>
+          <li>sunlight; or</li>
+          <li>physical handling.</li>
+        </ul>
+        <p>Damage or deterioration resulting from improper storage after delivery is not considered a delivery defect.</p>
+        <p>If you are unsure how to store your purchase, please contact our store for general guidance.</p>
+      </div>
+
+      <div class="policy-section" id="section-24">
+        <h2 class="policy-section__title">24.&nbsp;&nbsp;Questions About Your Delivery</h2>
+        <p>If you need assistance with an existing order, please contact our team.</p>
+        <p><strong>Meet Cuba</strong><br>Shop 12, G/F, Entertainment Building, 30 Queen's Road Central, Central, Hong Kong</p>
+        <p>Email: hello@meetcuba.com.hk<br>Telephone: +852 2543 4288<br>WhatsApp: +852 2543 4288</p>
+        <p>Please include your order number whenever possible so that we can assist you efficiently.</p>
+        <div class="policy-contact">
+          <div class="policy-contact__icon"></div>
+          <span>hello@meetcuba.com.hk</span>
+        </div>
+        <p style="margin-top: 20px; letter-spacing: 0.02em; font-weight: 600; color: var(--ink);">BY ORDER OF HKSAR GOVERNMENT: NO TOBACCO PRODUCT SHALL BE SOLD TO PERSON UNDER 18 OR GIVEN FOR PROMOTION TO ANY PERSON.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="trust-strip">
+    <div class="trust-strip__item">
+      <div class="trust-strip__icon"></div>
+      <div>
+        <div class="trust-strip__title">Complimentary Delivery</div>
+        <div class="trust-strip__sub">On orders over HK$2,000</div>
+      </div>
+    </div>
+    <div class="trust-strip__item">
+      <div class="trust-strip__icon"></div>
+      <div>
+        <div class="trust-strip__title">Secure Payment</div>
+        <div class="trust-strip__sub">Encrypted checkout</div>
+      </div>
+    </div>
+    <div class="trust-strip__item">
+      <div class="trust-strip__icon"></div>
+      <div>
+        <div class="trust-strip__title">Authenticity Guaranteed</div>
+        <div class="trust-strip__sub">All cigars 100% authentic</div>
+      </div>
+    </div>
+    <div class="trust-strip__item">
+      <div class="trust-strip__icon"></div>
+      <div>
+        <div class="trust-strip__title">Expert Support</div>
+        <div class="trust-strip__sub">We're here to help</div>
+      </div>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">Your Bag</h2>
+      <button class="cart-drawer__close" id="cartClose" type="button" aria-label="Close bag">×</button>
+    </div>
+    <div class="cart-drawer__count" id="cartItemsLabel">0 ITEMS</div>
+    <div class="cart-drawer__items" id="cartItems"></div>
+    <div class="cart-drawer__footer">
+      <div class="cart-subtotal-row">
+        <span>SUBTOTAL</span>
+        <span id="cartSubtotal">HK$0</span>
+      </div>
+      <div class="cart-delivery">
+        <span id="cartDeliveryText">Add HK$2,000 more for free delivery</span>
+        <span id="cartDeliveryCheck" style="display:none;">✓</span>
+      </div>
+      <div class="cart-progress"><div class="cart-progress__fill" id="cartProgressFill"></div></div>
+      <a class="btn btn--primary" href="#">CHECKOUT</a>
+      <a class="btn--outline-full" href="#">VIEW BAG</a>
+      <div class="cart-secure">🔒 Secure checkout</div>
+    </div>
+  </aside>
+  <script src="cart.js"></script>
+  <script src="footer.js"></script>
+  <script src="policy.js"></script>
+</body>
+</html>

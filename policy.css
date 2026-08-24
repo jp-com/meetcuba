@@ -1,0 +1,91 @@
+/* Policy pages (Privacy, Terms, Delivery & Returns, Cookies) — shared chrome, see policy.js */
+
+/* Policy header */
+.policy-header { padding-top: 50px; padding-bottom: 40px; }
+.policy-header__title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 44px;
+  margin-bottom: 14px;
+}
+.policy-header__updated { color: var(--ink-soft); font-size: 12px; margin-bottom: 26px; }
+.policy-header__intro { max-width: 900px; }
+.policy-header__intro p { color: var(--ink-soft); font-size: 12.5px; line-height: 1.8; margin-bottom: 14px; }
+.policy-header__intro p:last-child { margin-bottom: 0; }
+
+/* Layout */
+.policy-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 60px;
+  padding-top: 30px;
+  padding-bottom: 60px;
+}
+
+/* TOC */
+.policy-toc__label {
+  letter-spacing: 0.12em;
+  font-size: 10px;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+}
+.policy-toc { position: sticky; top: 40px; }
+.policy-toc__list { list-style: none; }
+.policy-toc__item { margin-bottom: 4px; }
+.policy-toc__link {
+  display: block;
+  padding: 8px 0 8px 14px;
+  border-left: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: 12px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.policy-toc__link:hover { color: var(--ink); }
+.policy-toc__link--active {
+  color: var(--ink);
+  font-weight: 600;
+  border-left: 1px solid var(--ink);
+}
+
+/* Content */
+.policy-section { padding: 34px 0; border-top: 1px solid var(--line); }
+.policy-section:first-child { padding-top: 0; border-top: none; }
+.policy-section__title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-variant: small-caps;
+  letter-spacing: 0.02em;
+  font-size: 19px;
+  margin-bottom: 14px;
+  scroll-margin-top: 40px;
+}
+.policy-section__subtitle {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin: 18px 0 8px;
+}
+.policy-section p { color: var(--ink-soft); font-size: 12.5px; line-height: 1.8; margin-bottom: 12px; }
+.policy-section p:last-child { margin-bottom: 0; }
+.policy-section ul { margin: 0 0 14px 18px; }
+.policy-section ul:last-child { margin-bottom: 0; }
+.policy-section li { color: var(--ink-soft); font-size: 12.5px; line-height: 1.8; }
+.policy-section strong { color: var(--ink); font-weight: 600; }
+.policy-contact {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  font-size: 12.5px;
+}
+.policy-contact__icon { width: 18px; height: 18px; flex: none; border: 1px solid var(--placeholder-line); }
+
+/* Table (Cookie Policy inventory) */
+.policy-table { width: 100%; border-collapse: collapse; margin: 4px 0 14px; font-size: 12px; }
+.policy-table th, .policy-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); color: var(--ink-soft); }
+.policy-table th {
+  color: var(--ink);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  font-size: 10px;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--ink);
+}

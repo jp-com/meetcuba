@@ -24,8 +24,8 @@
         '</div>' +
         '<div>' +
           '<div class="footer__col-title">CUSTOMER CARE</div>' +
-          '<a class="footer__col-link" href="#">Delivery</a>' +
-          '<a class="footer__col-link" href="#">Returns</a>' +
+          '<a class="footer__col-link" href="delivery.html">Delivery</a>' +
+          '<a class="footer__col-link" href="delivery.html">Returns</a>' +
           '<a class="footer__col-link" href="#">FAQ</a>' +
           '<a class="footer__col-link" href="#">Contact Us</a>' +
         '</div>' +
@@ -47,8 +47,10 @@
       '<div class="footer__bottom">' +
         '<span>© 2026 MEET CUBA HONG KONG. ALL RIGHTS RESERVED.</span>' +
         '<div class="footer__bottom-links">' +
-          '<a href="#">TERMS &amp; CONDITIONS</a>' +
+          '<a href="terms.html">TERMS &amp; CONDITIONS</a>' +
           '<a href="privacy.html">PRIVACY POLICY</a>' +
+          '<a href="delivery.html">DELIVERY &amp; RETURNS</a>' +
+          '<a href="cookies.html">COOKIES</a>' +
           '<span>18+ ONLY</span>' +
         '</div>' +
       '</div>' +
