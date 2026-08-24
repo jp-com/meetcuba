@@ -27,7 +27,7 @@
           '<a class="footer__col-link" href="delivery.html">Delivery</a>' +
           '<a class="footer__col-link" href="delivery.html">Returns</a>' +
           '<a class="footer__col-link" href="#">FAQ</a>' +
-          '<a class="footer__col-link" href="#">Contact Us</a>' +
+          '<a class="footer__col-link" href="contact.html">Contact Us</a>' +
         '</div>' +
         '<div>' +
           '<div class="footer__col-title">OUR STORE</div>' +
