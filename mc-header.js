@@ -6,6 +6,7 @@
       '<div class="topbar__right u-label">' +
         '<span>EN</span>' +
         '<span>ACCOUNT</span>' +
+        '<a class="u-label" href="wishlist.html">WISHLIST (<span data-wishlist-count>0</span>)</a>' +
         '<button class="bag-toggle u-label" data-bag-toggle type="button">BAG (<span data-bag-count>0</span>)</button>' +
       '</div>' +
     '</div>' +

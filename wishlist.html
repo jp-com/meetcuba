@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saved Items — Meet Cuba, Hong Kong</title>
+<link rel="stylesheet" href="mc-footer.css">
+<link rel="stylesheet" href="mc-search.css">
+<link rel="stylesheet" href="mc-header.css">
+<style>
+  :root {
+    --ink: #17140f;
+    --ink-soft: #4a453d;
+    --ground: #f8f6f2;
+    --ground-alt: #efece5;
+    --line: #e2ddd2;
+    --placeholder: #eae5da;
+    --placeholder-line: #d8d1c1;
+    --gold: #8a7440;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { overscroll-behavior: none; }
+
+  body {
+    overscroll-behavior: none;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: none; cursor: pointer; }
+
+  .u-label {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 10px;
+  }
+
+  section { padding: 0 40px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    padding: 16px 24px;
+    transition: opacity 0.2s ease;
+  }
+  .btn:hover { opacity: 0.8; }
+  .btn--primary { background: var(--ink); color: var(--ground); }
+
+  .text-link {
+    letter-spacing: 0.1em;
+    font-size: 10.5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: opacity 0.2s ease;
+  }
+  .text-link:hover { opacity: 0.65; }
+
+  /* Wishlist header */
+  .wishlist-header { padding-top: 50px; padding-bottom: 30px; }
+  .wishlist-header__title {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 40px;
+    margin-bottom: 14px;
+  }
+  .wishlist-header__intro { color: var(--ink-soft); font-size: 12.5px; margin-bottom: 22px; }
+  .wishlist-header__rule { width: 40px; height: 1px; background: var(--ink); margin-bottom: 18px; }
+
+  .wishlist-count-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 28px;
+  }
+  .wishlist-count-row__count { letter-spacing: 0.1em; font-size: 10.5px; }
+  .wishlist-count-row__clear { letter-spacing: 0.08em; font-size: 10.5px; text-decoration: underline; }
+  .wishlist-count-row__clear:hover { opacity: 0.65; }
+
+  /* Grid */
+  .wishlist-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px 20px;
+    padding-bottom: 36px;
+  }
+
+  .wishlist-card { position: relative; }
+  .wishlist-card__remove {
+    position: absolute;
+    top: 12px; right: 12px;
+    width: 26px; height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ground);
+    border: 1px solid var(--line);
+    z-index: 1;
+  }
+  .wishlist-card__image {
+    aspect-ratio: 1 / 1;
+    background: var(--placeholder);
+    border: 1px solid var(--placeholder-line);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .wishlist-card__image-mark { width: 30%; aspect-ratio: 1; border: 1px solid var(--placeholder-line); }
+  .wishlist-card__brand { letter-spacing: 0.1em; font-size: 10.5px; font-weight: 600; margin-bottom: 4px; }
+  .wishlist-card__name {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    margin-bottom: 4px;
+  }
+  .wishlist-card__spec { color: var(--ink-soft); font-size: 10.5px; margin-bottom: 8px; }
+  .wishlist-card__price { font-size: 12.5px; letter-spacing: 0.02em; margin-bottom: 14px; }
+
+  .wishlist-card__row { display: flex; align-items: center; gap: 10px; }
+  .wishlist-card__add {
+    flex: 1;
+    background: var(--ink);
+    color: var(--ground);
+    padding: 13px;
+    letter-spacing: 0.1em;
+    font-size: 10.5px;
+    text-align: center;
+    transition: opacity 0.2s ease;
+  }
+  .wishlist-card__add:hover { opacity: 0.8; }
+  .wishlist-card__more {
+    width: 42px; height: 42px;
+    flex: none;
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+  }
+
+  .wishlist-card__unavailable {
+    width: 100%;
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+    padding: 13px;
+    letter-spacing: 0.1em;
+    font-size: 10.5px;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .wishlist-card__contact {
+    display: block;
+    text-align: center;
+    text-decoration: underline;
+    font-size: 10.5px;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+  }
+  .wishlist-card__contact:hover { opacity: 0.65; }
+
+  /* Empty state */
+  .wishlist-empty { display: none; text-align: center; padding: 80px 0 100px; }
+  .wishlist-empty__title { font-family: Georgia, "Times New Roman", serif; font-size: 20px; margin-bottom: 10px; }
+  .wishlist-empty__copy { color: var(--ink-soft); font-size: 12.5px; margin-bottom: 22px; }
+
+  /* Note */
+  .wishlist-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px 0 60px;
+    border-top: 1px solid var(--line);
+    color: var(--ink-soft);
+    font-size: 11.5px;
+  }
+  .wishlist-note__icon {
+    width: 16px; height: 16px;
+    flex: none;
+    border-radius: 50%;
+    border: 1px solid var(--placeholder-line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+  }
+
+  /* Bag toggle */
+  .bag-toggle { cursor: pointer; }
+
+  /* Cart drawer */
+  body.cart-open { overflow: hidden; }
+
+  .cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(23, 20, 15, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 900;
+  }
+  body.cart-open .cart-overlay { opacity: 1; pointer-events: auto; }
+
+  .cart-drawer {
+    position: fixed;
+    top: 0; right: 0;
+    height: 100vh;
+    width: 460px;
+    max-width: 92vw;
+    background: var(--ground);
+    border-left: 1px solid var(--line);
+    transform: translateX(100%);
+    transition: transform 0.35s ease;
+    z-index: 901;
+    display: flex;
+    flex-direction: column;
+  }
+  body.cart-open .cart-drawer { transform: translateX(0); }
+
+  .cart-drawer__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 40px 40px 0;
+  }
+  .cart-drawer__title {
+    font-family: Georgia, "Times New Roman", serif;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 24px;
+  }
+  .cart-drawer__close { font-size: 20px; line-height: 1; padding: 4px; }
+  .cart-drawer__count {
+    padding: 10px 40px 20px;
+    margin-top: 6px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+    letter-spacing: 0.1em;
+    font-size: 10.5px;
+  }
+  .cart-drawer__items { flex: 1; overflow-y: auto; padding: 0 40px; }
+  .cart-empty { padding: 60px 0; text-align: center; color: var(--ink-soft); font-size: 12px; }
+
+  .cart-item { display: flex; gap: 20px; padding: 26px 0; border-bottom: 1px solid var(--line); }
+  .cart-item__image {
+    width: 110px; height: 110px; flex: none;
+    background: var(--placeholder);
+    border: 1px solid var(--placeholder-line);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cart-item__image-mark { width: 30%; aspect-ratio: 1; border: 1px solid var(--placeholder-line); }
+  .cart-item__body { flex: 1; display: flex; flex-direction: column; }
+  .cart-item__brand { letter-spacing: 0.1em; font-size: 10px; font-weight: 600; margin-bottom: 6px; }
+  .cart-item__name { font-family: Georgia, "Times New Roman", serif; font-size: 17px; margin-bottom: 4px; }
+  .cart-item__spec { color: var(--ink-soft); font-size: 11px; margin-bottom: 16px; }
+  .cart-item__row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .cart-item__price { font-size: 13px; }
+  .cart-item__remove {
+    align-self: flex-start;
+    font-size: 10.5px;
+    letter-spacing: 0.05em;
+    text-decoration: underline;
+    color: var(--ink-soft);
+  }
+
+  .cart-qty { display: flex; align-items: center; border: 1px solid var(--line); }
+  .cart-qty__btn { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+  .cart-qty__value { width: 30px; text-align: center; font-size: 12px; }
+
+  .cart-drawer__footer { padding: 22px 40px 32px; border-top: 1px solid var(--line); }
+  .cart-drawer__footer .btn { width: 100%; flex: none; }
+  .cart-subtotal-row {
+    display: flex; justify-content: space-between;
+    letter-spacing: 0.08em; font-size: 12px; font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .cart-delivery {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 11px; color: var(--ink-soft); margin-bottom: 10px;
+  }
+  .cart-progress { height: 2px; background: var(--line); margin-bottom: 22px; }
+  .cart-progress__fill { height: 100%; width: 0%; background: var(--ink); transition: width 0.3s ease; }
+  .btn--outline-full {
+    display: block;
+    width: 100%;
+    text-align: center;
+    border: 1px solid var(--ink);
+    padding: 15px;
+    letter-spacing: 0.12em;
+    font-size: 11px;
+    margin-top: 12px;
+    transition: opacity 0.2s ease;
+  }
+  .btn--outline-full:hover { opacity: 0.7; }
+  .cart-secure {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    margin-top: 16px;
+    color: var(--ink-soft);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+
+  <div id="site-header"></div>
+  <script src="mc-header.js"></script>
+
+  <div id="site-search"></div>
+
+  <section class="wishlist-header">
+    <h1 class="wishlist-header__title">Saved Items</h1>
+    <p class="wishlist-header__intro">Products you've saved for later.</p>
+    <div class="wishlist-header__rule"></div>
+  </section>
+
+  <section>
+    <div class="wishlist-count-row">
+      <span class="wishlist-count-row__count" id="wishlistCount">0 ITEMS</span>
+      <button class="wishlist-count-row__clear" id="wishlistClearAll" type="button">REMOVE ALL ITEMS</button>
+    </div>
+
+    <div class="wishlist-grid" id="wishlistGrid"></div>
+
+    <div class="wishlist-empty" id="wishlistEmpty">
+      <p class="wishlist-empty__title">Your saved items list is empty.</p>
+      <p class="wishlist-empty__copy">Save cigars you're considering by tapping the heart on any product.</p>
+      <a class="btn btn--primary" href="shop.html">BROWSE CIGARS →</a>
+    </div>
+
+    <div class="wishlist-note" id="wishlistNote" style="display:none;">
+      <span class="wishlist-note__icon">i</span>
+      <span>Saved items are stored on this device.</span>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer__header">
+      <h2 class="cart-drawer__title">Your Bag</h2>
+      <button class="cart-drawer__close" id="cartClose" type="button" aria-label="Close bag">×</button>
+    </div>
+    <div class="cart-drawer__count" id="cartItemsLabel">0 ITEMS</div>
+    <div class="cart-drawer__items" id="cartItems"></div>
+    <div class="cart-drawer__footer">
+      <div class="cart-subtotal-row">
+        <span>SUBTOTAL</span>
+        <span id="cartSubtotal">HK$0</span>
+      </div>
+      <div class="cart-delivery">
+        <span id="cartDeliveryText">Add HK$2,000 more for free delivery</span>
+        <span id="cartDeliveryCheck" style="display:none;">✓</span>
+      </div>
+      <div class="cart-progress"><div class="cart-progress__fill" id="cartProgressFill"></div></div>
+      <a class="btn btn--primary" href="#">CHECKOUT</a>
+      <a class="btn--outline-full" href="#">VIEW BAG</a>
+      <div class="cart-secure">🔒 Secure checkout</div>
+    </div>
+  </aside>
+  <script src="mc-cart.js"></script>
+  <script src="mc-wishlist.js"></script>
+  <script src="mc-footer.js"></script>
+  <script src="mc-search.js"></script>
+</body>
+</html>

@@ -252,8 +252,14 @@
     border: 1px solid var(--line);
     opacity: 0.85;
     transition: opacity 0.2s ease;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    appearance: none;
+    z-index: 1;
   }
   .product-card__wishlist:hover { opacity: 1; }
+  .product-card__wishlist--active { opacity: 1; }
 
   .product-card__brand {
     letter-spacing: 0.1em;
@@ -533,7 +539,7 @@
 
       <a class="product-card" href="product.html">
         <div class="product-card__badge">BESTSELLER</div>
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">COHIBA</div>
         <div class="product-card__name">Siglo VI</div>
@@ -542,7 +548,7 @@
       </a>
 
       <a class="product-card" href="product.html">
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">COHIBA</div>
         <div class="product-card__name">Robusto</div>
@@ -552,7 +558,7 @@
 
       <a class="product-card" href="product.html">
         <div class="product-card__badge">LIMITED EDITION</div>
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">COHIBA</div>
         <div class="product-card__name">55 Aniversario<br>Edición Limitada 2021</div>
@@ -561,7 +567,7 @@
       </a>
 
       <a class="product-card" href="product.html">
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">COHIBA</div>
         <div class="product-card__name">Travel Humidor</div>
@@ -571,7 +577,7 @@
 
       <a class="product-card" href="product.html">
         <div class="product-card__badge">LIMITED EDITION</div>
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">COHIBA</div>
         <div class="product-card__name">Talisman<br>Edición Limitada 2017</div>
@@ -580,7 +586,7 @@
       </a>
 
       <a class="product-card" href="product.html">
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">PARTAGÁS</div>
         <div class="product-card__name">Serie D No.4</div>
@@ -589,7 +595,7 @@
       </a>
 
       <a class="product-card" href="product.html">
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">PARTAGÁS</div>
         <div class="product-card__name">Serie D No.4</div>
@@ -598,7 +604,7 @@
       </a>
 
       <a class="product-card" href="product.html">
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">PARTAGÁS</div>
         <div class="product-card__name">Mille Fleurs</div>
@@ -608,7 +614,7 @@
 
       <a class="product-card" href="product.html">
         <div class="product-card__badge">LIMITED EDITION</div>
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">PARTAGÁS</div>
         <div class="product-card__name">Legado<br>Edición Limitada 2020</div>
@@ -618,7 +624,7 @@
 
       <a class="product-card" href="product.html">
         <div class="product-card__badge">GRAN RESERVA</div>
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">PARTAGÁS</div>
         <div class="product-card__name">E Gran Reserva<br>Cosecha 2015</div>
@@ -627,7 +633,7 @@
       </a>
 
       <a class="product-card" href="product.html">
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">MONTECRISTO</div>
         <div class="product-card__name">No.2</div>
@@ -636,7 +642,7 @@
       </a>
 
       <a class="product-card" href="product.html">
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">HOYO DE MONTERREY</div>
         <div class="product-card__name">Epicure No.2</div>
@@ -645,7 +651,7 @@
       </a>
 
       <a class="product-card" href="product.html">
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">ROMEO Y JULIETA</div>
         <div class="product-card__name">Wide Churchill</div>
@@ -654,7 +660,7 @@
       </a>
 
       <a class="product-card" href="product.html">
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">TRINIDAD</div>
         <div class="product-card__name">Fundadores</div>
@@ -663,7 +669,7 @@
       </a>
 
       <a class="product-card" href="product.html">
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">BOLÍVAR</div>
         <div class="product-card__name">Belicosos Finos</div>
@@ -672,7 +678,7 @@
       </a>
 
       <a class="product-card" href="product.html">
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">H. UPMANN</div>
         <div class="product-card__name">Noellas<br>Glass Jar LCDH</div>
@@ -720,6 +726,7 @@
     </div>
   </aside>
   <script src="mc-cart.js"></script>
+  <script src="mc-wishlist.js"></script>
   <script src="mc-footer.js"></script>
   <script src="mc-search.js"></script>
   <script>

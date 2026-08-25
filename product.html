@@ -312,8 +312,14 @@
     border: 1px solid var(--line);
     opacity: 0.85;
     transition: opacity 0.2s ease;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    appearance: none;
+    z-index: 1;
   }
   .product-card__wishlist:hover { opacity: 1; }
+  .product-card__wishlist--active { opacity: 1; }
   .product-card__brand { letter-spacing: 0.1em; font-size: 10.5px; font-weight: 600; margin-bottom: 4px; }
   .product-card__name { color: var(--ink-soft); font-size: 12px; margin-bottom: 4px; }
   .product-card__spec { color: var(--ink-soft); font-size: 10.5px; margin-bottom: 10px; }
@@ -602,7 +608,7 @@
     <div class="product-grid">
 
       <article class="product-card">
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">COHIBA</div>
         <div class="product-card__name">Siglo VI</div>
@@ -611,7 +617,7 @@
       </article>
 
       <article class="product-card">
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">COHIBA</div>
         <div class="product-card__name">Robusto</div>
@@ -620,7 +626,7 @@
       </article>
 
       <article class="product-card">
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">COHIBA</div>
         <div class="product-card__name">55 Aniversario<br>Edición Limitada 2021</div>
@@ -629,7 +635,7 @@
       </article>
 
       <article class="product-card">
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">MONTECRISTO</div>
         <div class="product-card__name">No.2</div>
@@ -638,7 +644,7 @@
       </article>
 
       <article class="product-card">
-        <div class="product-card__wishlist">♡</div>
+        <button class="product-card__wishlist" data-wishlist-toggle type="button">♡</button>
         <div class="product-card__image"><div class="product-card__image-mark"></div></div>
         <div class="product-card__brand">HOYO DE MONTERREY</div>
         <div class="product-card__name">Epicure No.2</div>
@@ -679,6 +685,7 @@
     </div>
   </aside>
   <script src="mc-cart.js"></script>
+  <script src="mc-wishlist.js"></script>
   <script src="mc-footer.js"></script>
   <script src="mc-search.js"></script>
   <script>
