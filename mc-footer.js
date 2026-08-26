@@ -13,7 +13,6 @@
           '<a class="footer__col-link" href="shop.html">All Cigars</a>' +
           '<a class="footer__col-link" href="#">Accessories</a>' +
           '<a class="footer__col-link" href="#">New Arrivals</a>' +
-          '<a class="footer__col-link" href="#">Gift Cards</a>' +
         '</div>' +
         '<div>' +
           '<div class="footer__col-title">BRANDS</div>' +
