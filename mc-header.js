@@ -11,7 +11,7 @@
     '</div>' +
     '<nav class="nav">' +
       '<div class="nav__links nav__links--left u-label">' +
-        '<button data-search-toggle type="button">SEARCH</button>' +
+        '<button class="nav__search-toggle" data-search-toggle type="button" aria-label="Search"></button>' +
         '<a class="nav__link" data-nav-item="shop" href="shop.html">SHOP</a>' +
         '<a class="nav__link" data-nav-item="brands" href="brands.html">BRANDS</a>' +
       '</div>' +

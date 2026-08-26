@@ -18,6 +18,21 @@
 }
 .nav__links { display: flex; align-items: center; gap: 32px; }
 .nav__links--left { justify-content: flex-start; }
+.nav__search-toggle {
+  width: 17px;
+  height: 17px;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Ccircle cx='8.5' cy='8.5' r='6.5' stroke='%2317140f' stroke-width='1.4'/%3E%3Cline x1='13.3' y1='13.3' x2='18' y2='18' stroke='%2317140f' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+.nav__search-toggle:hover { opacity: 1; }
 .nav__links--right { justify-content: flex-end; }
 .nav__link { position: relative; }
 .nav__link--active::after {
